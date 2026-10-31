@@ -23,14 +23,15 @@ from a `file://` URL.
 index.html
 static/
   css/   bulma.min.css · index.css · mario.css   (mario.css is the only custom sheet)
-  js/    fontawesome.all.min.js · mario.js
+  js/    mario.js
   data/  leaderboard.json · examples.json
   images/figures/  paper figures (webp + jpg/png fallback)
         /tasks/    benchmark sample observations for the two widgets
         /logos/
 ```
 
-`mario.js` builds three things: the results table (`#leaderboard`), the task
+Button icons are inline SVG, so there is no icon bundle: the whole first paint
+is about 410 KB. `mario.js` builds three things: the results table (`#leaderboard`), the task
 gallery (`#tasks`) and the qualitative explorer (`#qualitative`). The last two
 share `static/data/examples.json`, which holds ten real benchmark items together
 with the real predictions of four models on them.

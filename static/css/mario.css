@@ -436,3 +436,6 @@ pre.code, #BibTeX pre {
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* inline icons replacing the Font Awesome bundle */
+.publication-links .icon .ico { width: 1em; height: 1em; display: block; }
