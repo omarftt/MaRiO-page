@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MaRiO</title>
+
+<meta name="description" content="MaRiO is a benchmark for multi-agent collaborative spatial reasoning in MLLMs. Several agents observe one scene from independent viewpoints, with no shared camera poses or geometry.">
+<meta name="keywords" content="MaRiO, multi-agent reasoning, spatial reasoning, MLLM, vision-language models, benchmark, cross-agent correspondence, egocentric, NeurIPS 2026">
+<meta name="robots" content="noindex, nofollow">
+
+<meta property="og:title" content="MaRiO: Multi-agent Collaborative Reasoning via Shared Observations in MLLMs">
+<meta property="og:description" content="Several agents see the same room from independent viewpoints — no shared camera poses, no shared coordinate frame, just RGB. 23 MLLMs fall far short of human accuracy.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="static/images/figures/fig1_teaser.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MaRiO: Multi-agent Collaborative Reasoning in MLLMs">
+<meta name="twitter:description" content="A benchmark for reasoning across independently oriented agent viewpoints, with no shared geometry.">
+<meta name="twitter:image" content="static/images/figures/fig1_teaser.jpg">
+
+<meta name="citation_title" content="MaRiO: Multi-agent Collaborative Reasoning via Shared Observations in MLLMs">
+<meta name="citation_author" content="Redmond, Nathaniel">
+<meta name="citation_author" content="Tito Cruz, Fidel Omar">
+<meta name="citation_author" content="Sharma, Devansh">
+<meta name="citation_author" content="Azad, Shehreen">
+<meta name="citation_author" content="Mitra, Sirshapan">
+<meta name="citation_author" content="Vyas, Shruti">
+<meta name="citation_author" content="Rawat, Yogesh S.">
+<meta name="citation_publication_date" content="2026">
+<meta name="citation_conference_title" content="Advances in Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track">
+
+<link rel="icon" href="static/images/favicon.svg">
+<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans:400,600,700|Castoro" rel="stylesheet">
+<link rel="stylesheet" href="static/css/bulma.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+<link rel="stylesheet" href="static/css/index.css">
+<link rel="stylesheet" href="static/css/mario.css">
+<script defer src="static/js/fontawesome.all.min.js"></script>
+<script defer src="static/js/mario.js"></script>
+</head>
+<body>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><span class="brand">MaRiO</span></h1>
+          <h2 class="subtitle publication-subtitle">Multi-agent Collaborative Reasoning via Shared Observations in MLLMs</h2>
+          <p class="venue">NeurIPS 2026 &middot; Datasets &amp; Benchmarks Track</p>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Nathaniel Redmond<sup>*</sup>,</span>
+            <span class="author-block">Fidel Omar Tito Cruz<sup>*</sup>,</span>
+            <span class="author-block">Devansh Sharma,</span>
+            <span class="author-block">Shehreen Azad,</span>
+            <span class="author-block">Sirshapan Mitra,</span>
+            <span class="author-block">Shruti Vyas,</span>
+            <span class="author-block">Yogesh S. Rawat</span>
+          </div>
+          <div class="is-size-6 publication-authors affiliations">
+            <span class="author-block">Center for Research in Computer Vision, University of Central Florida</span>
+          </div>
+          <p class="eql-cntrb"><sup>*</sup>Equal contribution</p>
+
+          <div class="logo-row">
+            <img src="static/images/logos/ucf.png" alt="University of Central Florida" height="46">
+          </div>
+
+          <div class="publication-links">
+            <span class="link-block">
+              <span class="button is-normal is-rounded is-soon" aria-disabled="true">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>Paper</span><span class="soon">coming soon</span>
+              </span>
+            </span>
+            <!-- TODO: swap for the real link once the code repo is public
+            <span class="link-block">
+              <a href="https://github.com/omarftt/MaRiO" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a>
+            </span> -->
+            <span class="link-block">
+              <span class="button is-normal is-rounded is-soon" aria-disabled="true">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span><span class="soon">coming soon</span>
+              </span>
+            </span>
+            <span class="link-block">
+              <a href="https://huggingface.co/datasets/mariobench2026/MaRiO" target="_blank" rel="noopener"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">🤗</span><span>Dataset</span></a>
+            </span>
+          </div>
+
+          <p class="teaser-line">
+            Several agents see the same room from independent viewpoints &mdash; no shared camera poses,
+            no shared coordinate frame, just RGB. Before a model can reason about space, it has to work
+            out how the views relate.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TEASER ============================ -->
+<section class="hero teaser">
+  <div class="container is-max-widescreen">
+    <div class="hero-body">
+      <figure class="figure">
+        <picture>
+          <source srcset="static/images/figures/fig1_teaser.webp" type="image/webp">
+          <img src="static/images/figures/fig1_teaser.jpg" width="1600" height="814"
+               alt="Three agents observe one house from independent viewpoints. Each agent's egocentric view is shown on the left; the question asks what steps Agent 3 should take to get Agent 1 directly in front of it.">
+        </picture>
+        <figcaption>
+          <strong>Multi-agent collaborative reasoning in a shared environment.</strong>
+          Multiple agents observe the same environment from independent coordinate frames, so a model must
+          establish cross-agent correspondence before it can infer any spatial or geometric relation.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ABSTRACT ============================ -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Multimodal Large Language Models (MLLMs) show strong visual perception capabilities, but existing
+            evaluations largely focus on single-view or multi-view settings with shared camera parameters,
+            leaving the challenge of multi-agent collaborative scenarios underexplored. In such settings,
+            multiple agents observe a shared environment from independent viewpoints, and reliable decisions
+            require reasoning across these independent observations of the same environment. To study this
+            problem, we introduce <strong>MaRiO</strong>, a benchmark for evaluating multi-agent collaborative
+            reasoning, and evaluate <strong>23</strong> state-of-the-art MLLMs on it. Our analysis reveals three
+            key findings: (1) tasks governed by static perception are generally easier than tasks that require
+            transformational event sequences; (2) most models struggle to resolve cross-agent correspondences,
+            with errors increasing with scene complexity; and (3) models show limited ability to leverage
+            geometric cues present in the scene. As an initial step toward addressing these challenges, we
+            explore geometry-guided synthetic view augmentation that generates intermediate transition frames
+            between agent observations, providing auxiliary spatial context that improves performance in certain
+            categories. Overall, our results highlight that multi-agent collaborative reasoning remains an open
+            challenge and an important direction for multimodal embodied systems.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MOTIVATION ============================ -->
+<section class="section" id="motivation">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <p class="eyebrow">The gap</p>
+      <h2 class="title is-3">Motivation</h2>
+      <p class="section-sub">Prior benchmarks hand the model one coordinate frame. Collaborative agents don't have one.</p>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content lines">
+          <p>
+            Single-view benchmarks are limited to one perspective and cannot resolve cross-view ambiguities.
+            Multi-view benchmarks add images, but they are typically captured along a shared trajectory whose
+            geometry is known or recoverable, and they usually ship camera poses, intrinsics, 3D coordinates
+            or point clouds alongside the pixels.
+          </p>
+          <p>
+            Multi-agent settings remove that scaffolding. Each agent observes the environment from its own
+            egocentric frame with no shared geometric metadata, so a model must <em>first</em> establish
+            correspondences between independent viewpoints and align them, and only <em>then</em> infer spatial
+            and geometric relationships. That two-stage requirement &mdash; correspondence, then reasoning &mdash;
+            is what MaRiO isolates.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="mtable compare">
+        <thead>
+          <tr>
+            <th rowspan="2" class="ta-l">Benchmark</th>
+            <th colspan="2" class="grp">Setup</th>
+            <th colspan="2" class="grp">Reasoning requirement</th>
+            <th rowspan="2">Cam. Geom.</th>
+            <th rowspan="2">Aux. Info.</th>
+            <th rowspan="2" class="ta-l">Reasoning challenge</th>
+          </tr>
+          <tr><th>MV</th><th>MA</th><th>Perc.</th><th>Comp.</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="ta-l">VSR</td><td class="no">&#10007;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td>&ndash;</td><td>None</td><td class="ta-l">Spatial relation</td></tr>
+          <tr><td class="ta-l">Winoground</td><td class="no">&#10007;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td>&ndash;</td><td>Attribute tag</td><td class="ta-l">Compositionality</td></tr>
+          <tr><td class="ta-l">GeoMeter</td><td class="no">&#10007;</td><td class="no">&#10007;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td><td>&ndash;</td><td>None</td><td class="ta-l">Depth perception</td></tr>
+          <tr><td class="ta-l">OmniSpatial</td><td class="no">&#10007;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td>&ndash;</td><td>None</td><td class="ta-l">Cognitive spatial reasoning</td></tr>
+          <tr><td class="ta-l">ScanQA</td><td class="no">&#10007;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td>&ndash;</td><td>Point clouds</td><td class="ta-l">3D scene understanding</td></tr>
+          <tr><td class="ta-l">3DSRBench</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td>Provided</td><td>None</td><td class="ta-l">3D spatial reasoning</td></tr>
+          <tr><td class="ta-l">ViewSpatial</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td>Provided</td><td>3D coord.</td><td class="ta-l">3D scene understanding</td></tr>
+          <tr><td class="ta-l">SpinBench</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td>Provided</td><td>Cam. intrinsics</td><td class="ta-l">Spatial transformation</td></tr>
+          <tr><td class="ta-l">All-Angles</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td>Provided</td><td>Cam. intrinsics</td><td class="ta-l">Cross-view correspondence</td></tr>
+          <tr><td class="ta-l">VSI-Bench</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td>Provided</td><td>None</td><td class="ta-l">Visual-spatial intelligence</td></tr>
+          <tr><td class="ta-l">MMSI-Bench</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td>Provided</td><td>None</td><td class="ta-l">Multi-image spatial reasoning</td></tr>
+          <tr class="ours">
+            <td class="ta-l"><strong>MaRiO (ours)</strong></td>
+            <td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td>
+            <td><strong>Independent</strong></td><td><strong>None</strong></td>
+            <td class="ta-l"><strong>Cross-agent correspondence</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption">
+      MV and MA denote multi-view and multi-agent. Perc. and Comp. refer to static perception and
+      compositional reasoning over geometric transformations. Cam. Geom. is the provision of explicit
+      camera geometry; Aux. Info. is any auxiliary information beyond RGB frames. MaRiO is the only
+      entry with independent camera geometry and no auxiliary information.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ BENCHMARK ============================ -->
+<section class="section divided" id="benchmark">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <p class="eyebrow">The benchmark</p>
+      <h2 class="title is-3">MaRiO</h2>
+      <p class="section-sub">3,255 questions over 1,680 multi-agent observation sets &mdash; RGB only.</p>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat"><b>3,255</b><span>questions</span></div>
+      <div class="stat"><b>1,680</b><span>observation sets</span></div>
+      <div class="stat"><b>3,425</b><span>unique views</span></div>
+      <div class="stat"><b>5</b><span>reasoning tasks</span></div>
+      <div class="stat"><b>2&ndash;3</b><span>agents per scene</span></div>
+      <div class="stat"><b>23</b><span>MLLMs evaluated</span></div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content lines">
+          <p>
+            Every question is four-choice multiple choice with a randomized option order. Each one is built on a
+            set of synchronized views of a shared scene, captured by two or three independently oriented agents.
+            Models receive the raw images and the question text &mdash; nothing else. No camera poses, no
+            intrinsics, no depth, no point clouds, no scene graphs.
+          </p>
+          <p>
+            Scenes come from both real-world sources and simulators, to balance realism against control.
+            200 scenes from <strong>RealEstate10K</strong> and 35 from <strong>NAVI</strong> contribute 913
+            real image sets; 39 scenes built in <strong>VirtualHome</strong>, <strong>Habitat-Sim</strong> and
+            <strong>AI2-THOR</strong> contribute 767 synthetic ones, some augmented with lighting variation,
+            object perturbation or lens artifacts.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap narrow">
+      <table class="mtable compose">
+        <thead><tr><th class="ta-l">Group</th><th class="ta-l">Task</th><th>2 agents</th><th>3 agents</th><th>Total</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="2" class="ta-l grp-c comp">Compositional</td><td class="ta-l">Egocentric Motion</td><td>576</td><td>189</td><td>765</td></tr>
+          <tr><td class="ta-l">Navigation</td><td>659</td><td>214</td><td>873</td></tr>
+          <tr class="sep"><td rowspan="3" class="ta-l grp-c stat">Static Perception</td><td class="ta-l">Distance Awareness</td><td>472</td><td>149</td><td>621</td></tr>
+          <tr><td class="ta-l">Occlusion / Visibility</td><td>366</td><td>41</td><td>407</td></tr>
+          <tr><td class="ta-l">Relative Position</td><td>517</td><td>72</td><td>589</td></tr>
+          <tr class="total"><td class="ta-l" colspan="2">All</td><td>2,590</td><td>665</td><td>3,255</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TASKS + GALLERY ============================ -->
+<section class="section hero is-light" id="tasks">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <p class="eyebrow">Five tasks, two groups</p>
+      <h2 class="title is-3">What the questions ask</h2>
+      <p class="section-sub">Three tasks are answerable from what the views show; two require composing transformations between them.</p>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content lines">
+          <p>
+            <strong class="tag-static">Static Perception</strong> covers spatial relationships and visibility that
+            can be read off the agents' views once they are aligned: <em>Distance Awareness</em> (qualitative depth
+            and proximity from an egocentric viewpoint), <em>Occlusion / Visibility</em> (viewpoint-dependent
+            visibility and object enumeration under partial occlusion), and <em>Relative Position</em> (relative
+            agent positions and orientations).
+          </p>
+          <p>
+            <strong class="tag-comp">Compositional Reasoning over Geometric Transformations</strong> covers tasks
+            that require sequencing transformations: <em>Egocentric Motion</em> (orientation under a change of
+            reference frame) and <em>Navigation</em> (sequential state updates composed from translations and
+            rotations).
+          </p>
+          <p>
+            The grouping is not stylistic. Across the 19 open-source models, task-wise accuracies within Static
+            Perception correlate strongly with each other (Spearman <em>&rho;</em> = 0.855&ndash;0.933), while
+            Egocentric Motion and Navigation correlate only weakly with those tasks and with each other
+            (<em>&rho;</em> = 0.407).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- interactive task gallery -->
+    <div class="gallery" id="gallery" data-widget="gallery">
+      <div class="gal-tabs" role="tablist" aria-label="Reasoning tasks"></div>
+      <div class="gal-panel"></div>
+    </div>
+
+    <figure class="figure wide">
+      <picture>
+        <source srcset="static/images/figures/fig2_tasks.webp" type="image/webp">
+        <img src="static/images/figures/fig2_tasks.jpg" width="1800" height="696" loading="lazy"
+             alt="Overview of MaRiO's five tasks, each shown with agent views, a question and four answer options.">
+      </picture>
+      <figcaption>
+        <strong>Overview of MaRiO.</strong> One example from each of the five tasks. Every question is built from
+        the observations of multiple agents viewing the same environment, and answering it requires reasoning
+        across those views without camera parameters or geometric metadata.
+      </figcaption>
+    </figure>
+
+    <figure class="figure">
+      <picture>
+        <source srcset="static/images/figures/fig21_examples.webp" type="image/webp">
+        <img src="static/images/figures/fig21_examples.jpg" width="1500" height="1342" loading="lazy"
+             alt="A single two-agent observation set of a kitchen, with one question from each of the five reasoning categories asked about it and the correct option boxed in green.">
+      </picture>
+      <figcaption>
+        <strong>One observation set, five categories.</strong> The same pair of views supports questions from
+        every reasoning task, which is how 1,680 observation sets yield 3,255 questions &mdash; and why a model
+        cannot do well by learning a single shortcut per scene.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ CONSTRUCTION ============================ -->
+<section class="section" id="construction">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <p class="eyebrow">How it was built</p>
+      <h2 class="title is-3">Construction</h2>
+      <p class="section-sub">Questions were written and cross-verified by three expert annotators; the LLM only polished phrasing and drafted distractors.</p>
+    </div>
+
+    <figure class="figure">
+      <picture>
+        <source srcset="static/images/figures/fig20_pipeline.webp" type="image/webp">
+        <img src="static/images/figures/fig20_pipeline.jpg" width="1400" height="498" loading="lazy"
+             alt="Two-stage construction pipeline: image generation from real and synthetic sources into agent-configured image sets, then QA generation through task specification, expert annotation, verification and MCQ formatting.">
+      </picture>
+      <figcaption>
+        <strong>The MaRiO construction pipeline.</strong> Image generation combines real-world and synthetic
+        sources into multi-agent observation sets; QA generation produces verified four-choice questions through
+        task specification, expert annotation, joint verification and MCQ formatting.
+      </figcaption>
+    </figure>
+
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content lines">
+          <p>
+            Each reasoning category has a written specification fixing its spatial primitives, reference-frame
+            assumptions and reasoning constraints. Three domain-expert annotators drafted candidate questions
+            against those specifications, ensuring each one requires evidence from more than one agent's view.
+            Every draft was reviewed by at least one other annotator for spatial validity, ambiguity and
+            consistency; flagged questions were reformulated over the same observation set where possible and
+            discarded otherwise, and disagreements were resolved by consensus.
+          </p>
+          <p>
+            An LLM assisted in two narrow ways: polishing the grammar and phrasing of human-authored questions,
+            and proposing three plausible distractors per question. Every output was reviewed, edited, accepted
+            or rejected by a human annotator. <strong>Ground-truth labels were authored by humans only</strong>;
+            no LLM output was accepted as a correct answer.
+          </p>
+          <p>
+            To check that the three annotators produced a consistent benchmark, 375 items (25 per annotator per
+            category) were audited by an LLM judge with annotator identity hidden, against four binary criteria.
+            Pass rates were <strong>94.9%</strong> pooled and 92.8&ndash;98.8% per annotator, highest for
+            answer-option consistency (97.3%) and entity concreteness (97.1%), lowest for overall style match (91.2%).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ RESULTS ============================ -->
+<section class="section divided" id="results">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <p class="eyebrow">Results</p>
+      <h2 class="title is-3">Zero-shot performance</h2>
+      <p class="section-sub">Every model we evaluated falls well short of human accuracy.</p>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content lines">
+          <p>
+            Human evaluators reach <strong>73.2%</strong>. The best model, Gemini-2.5-Pro, reaches
+            <strong>55.7%</strong>; the best open-source model, Ovis2.5-9B, reaches <strong>41.2%</strong>, and
+            most others cluster between 30&ndash;42% against a random baseline of 23.9%. The largest difficulties
+            appear in the compositional tasks &mdash; Navigation and Egocentric Motion &mdash; where many models
+            approach near-random accuracy, while Occlusion and Relative Position hold up comparatively well.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap" id="leaderboard" data-widget="leaderboard">
+      <p class="loading">Loading results&hellip;</p>
+    </div>
+    <p class="caption">
+      Overall accuracy is correct predictions over all questions; Avg. is the mean of the five task-wise
+      accuracies. Within each model group, <span class="k best">best</span> and
+      <span class="k second">second-best</span> are shaded; the overall best across all models is
+      additionally outlined. Values reproduce Table 2 of the paper. Two notes on that table: the supplementary
+      reports a corrected average of 34.6 for InternVL3-2B, and the Human Evaluators row was measured on a
+      stratified subset rather than the full benchmark, so its Overall is not a count-weighted mean of its task
+      columns.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ FINDINGS ============================ -->
+<section class="section" id="analysis">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <p class="eyebrow">Analysis</p>
+      <h2 class="title is-3">What goes wrong</h2>
+      <p class="section-sub">The bottleneck is cross-agent correspondence, not perception.</p>
+    </div>
+
+    <!-- 1 -->
+    <article class="finding">
+      <h3><span class="num">01</span> Static perception does not carry over to compositional reasoning.</h3>
+      <div class="finding-body">
+        <p>
+          If being good at reading a scene implied being good at composing transformations across scenes, the two
+          should track each other. They barely do. Pooling every model, the regression of compositional accuracy on
+          static perceptual accuracy has a slope of 0.15 and an <em>R</em><sup>2</sup> of 0.028; per-model
+          regressions give consistently low <em>R</em><sup>2</sup> values, and the sign of the slope is not even
+          stable across models.
+        </p>
+        <p>
+          So while models can reconcile static spatial relationships from multiple egocentric observations, that
+          ability does not translate into reliably resolving sequences of geometric transformations.
+        </p>
+      </div>
+      <figure class="figure">
+        <picture><source srcset="static/images/figures/fig3_perception_vs_compositional.webp" type="image/webp">
+        <img src="static/images/figures/fig3_perception_vs_compositional.png" width="1500" height="643" loading="lazy"
+             alt="Left: hexbin density of static perceptual accuracy against compositional accuracy, pooled across models, with a near-flat regression line. Right: per-model regression slopes and R-squared values, all small."></picture>
+        <figcaption>Pooled density with a linear fit (<em>left</em>), and per-model regression slopes and <em>R</em><sup>2</sup> (<em>right</em>).</figcaption>
+      </figure>
+    </article>
+
+    <!-- 2 -->
+    <article class="finding">
+      <h3><span class="num">02</span> Many open-source models barely use the other agent's view.</h3>
+      <div class="finding-body">
+        <p>
+          Withholding one randomly selected observation, or all of them, while leaving the question unchanged
+          separates models that integrate distributed evidence from models that do not. Proprietary models degrade
+          consistently across every reasoning category when a viewpoint is removed &mdash; their predictions
+          genuinely depend on information spread across observations.
+        </p>
+        <p>
+          Open-source models show only minor changes, and in some categories none at all. On compositional tasks
+          several of them stay above random <em>with no visual input whatsoever</em>, which means those answers are
+          coming from answer priors and option bias rather than from cross-agent visual evidence.
+        </p>
+      </div>
+      <figure class="figure">
+        <picture><source srcset="static/images/figures/fig4_removal.webp" type="image/webp">
+        <img src="static/images/figures/fig4_removal.png" width="1500" height="231" loading="lazy"
+             alt="Grouped bar charts for five models comparing accuracy with all views present, one view missing, and all views missing, across the five tasks."></picture>
+        <figcaption>Accuracy with all views present, one view missing, and all views missing.</figcaption>
+      </figure>
+    </article>
+
+    <!-- 3 -->
+    <article class="finding">
+      <h3><span class="num">03</span> A third agent makes it worse.</h3>
+      <div class="finding-body">
+        <p>
+          Going from two agents to three adds viewpoints &mdash; and more information ought to help. Instead
+          accuracy declines across nearly all models and categories, because each extra agent enlarges the set of
+          cross-agent correspondences that have to be resolved simultaneously. The largest drops land on Navigation
+          and Egocentric Motion, which already have the lowest baselines.
+        </p>
+      </div>
+      <figure class="figure">
+        <picture><source srcset="static/images/figures/fig5_agents.webp" type="image/webp">
+        <img src="static/images/figures/fig5_agents.png" width="1500" height="312" loading="lazy"
+             alt="Grouped bar charts for six models comparing two-agent and three-agent accuracy across overall and per-task scores; three-agent bars are mostly lower."></picture>
+        <figcaption>Two-agent against three-agent accuracy, per model and per category.</figcaption>
+      </figure>
+    </article>
+
+    <!-- 4 -->
+    <article class="finding">
+      <h3><span class="num">04</span> Shared landmarks help, until the scene gets cluttered.</h3>
+      <div class="finding-body">
+        <p>
+          Shared anchors &mdash; static objects visible to more than one agent &mdash; are the natural reference
+          points for aligning views, so you would expect more of them to be strictly better. The relationship is
+          non-monotonic instead: accuracy improves as anchor density rises from very sparse scenes up to the
+          <span class="nowrap">[6, 9]</span> range, then degrades past 10.
+        </p>
+        <p>
+          Past that point the landmarks stop disambiguating and start competing: many similar candidates make
+          matching a spatial reference across agents ambiguous. Navigation and Egocentric Motion are the most
+          sensitive, and the effect is sharper with three agents than with two.
+        </p>
+      </div>
+      <figure class="figure narrow">
+        <picture><source srcset="static/images/figures/fig14_anchors.webp" type="image/webp">
+        <img src="static/images/figures/fig14_anchors.png" width="816" height="549" loading="lazy"
+             alt="Line plot of accuracy against shared anchor density bins, rising to a peak at the 6 to 9 bin then falling at 10 plus, for all five tasks and their average."></picture>
+        <figcaption>Accuracy against shared anchor density, averaged over two- and three-agent settings.</figcaption>
+      </figure>
+    </article>
+
+    <!-- 5 -->
+    <article class="finding">
+      <h3><span class="num">05</span> Mirror the scene, swap the words, and the answer flips.</h3>
+      <div class="finding-body">
+        <p>
+          Flipping the images horizontally and swapping the directional language to match
+          (&ldquo;turn left&rdquo; &rarr; &ldquo;turn right&rdquo;) produces a geometrically equivalent question.
+          A model with a stable spatial representation should answer both identically. Across models,
+          <strong>22&ndash;32%</strong> of questions change outcome, and bias ratios of 0.47&ndash;0.59 &mdash; where
+          0.50 means perfectly symmetric fragility &mdash; show that no model is robustly orientation-invariant.
+        </p>
+        <p>
+          Splitting Navigation isolates the cause. Directional questions, where both the image and the text are
+          transformed, drop by a mean of <strong>+2.6 pp</strong>; obstacle questions, where only the image is
+          flipped, drop by <strong>+0.4 pp</strong>. The instability is driven by directional language cues rather
+          than by the geometry &mdash; and the same pattern holds across all 15 open-source models in the
+          supplementary.
+        </p>
+      </div>
+      <figure class="figure">
+        <picture><source srcset="static/images/figures/fig6_flip.webp" type="image/webp">
+        <img src="static/images/figures/fig6_flip.png" width="1500" height="371" loading="lazy"
+             alt="Left: stacked bars of question outcomes under original and flipped orientations with bias ratios near 0.5. Right: accuracy drop by reasoning sub-category, with directional navigation shifted further than obstacle questions."></picture>
+        <figcaption>Outcome classification under reflection (<em>left</em>) and accuracy change by sub-category (<em>right</em>).</figcaption>
+      </figure>
+    </article>
+
+    <!-- 6 -->
+    <article class="finding">
+      <h3><span class="num">06</span> Models do not exploit the geometry that is already in the image.</h3>
+      <div class="finding-body">
+        <p>
+          If models read geometric structure from pixels, scenes with stronger monocular depth cues should be
+          easier. Grouping samples by the number of distinct depth layers and comparing high against low depth-edge
+          density within each group shows the opposite or nothing at all: most models perform <em>worse</em> at
+          higher edge density, with the largest degradation in simple scenes, and effects that are small and
+          inconsistent in moderate and complex ones.
+        </p>
+        <p>
+          Across 20 models and three complexity strata, only one comparison survives Bonferroni correction
+          (<em>&alpha;</em> = 0.0025), and no model shows a significant positive effect. Additional geometric
+          structure is being treated as visual clutter rather than as useful spatial information.
+        </p>
+      </div>
+      <figure class="figure">
+        <picture><source srcset="static/images/figures/fig7_depth.webp" type="image/webp">
+        <img src="static/images/figures/fig7_depth.png" width="1500" height="328" loading="lazy"
+             alt="Dot plot of accuracy change between high and low depth edge density, split into simple, moderate and complex scene strata, with effects scattered around zero."></picture>
+        <figcaption>Accuracy change between high and low depth-edge density, within each depth-layer stratum.</figcaption>
+      </figure>
+    </article>
+
+    <!-- 7 -->
+    <article class="finding">
+      <h3><span class="num">07</span> Humans and models fail on different questions.</h3>
+      <div class="finding-body">
+        <p>
+          Humans do not find MaRiO trivial either &mdash; 73.2% overall, with the lowest scores on Egocentric
+          Motion and Navigation. Auditing every question at least one evaluator missed, direction confusion
+          dominates: 13 of 23 incorrect responses involve a rotated, mirrored, reversed or reordered direction.
+          That is the signature of mental-rotation cost, which cognitive science predicts should scale with the
+          degree of perspective change, and it concentrates exactly where the paper predicts &mdash; three-agent
+          Egocentric Motion.
+        </p>
+        <p>
+          The two error sets barely overlap. Of the 60 questions every evaluator answered correctly,
+          Gemini-2.5-Pro failed <strong>19</strong>. Of the 21 questions with at least one human error, it answered
+          <strong>11</strong> correctly. Human success does not track model success, which is the evidence that
+          MaRiO's questions are genuinely answerable rather than simply hard for everyone.
+        </p>
+      </div>
+      <div class="dual-table">
+        <div class="table-wrap narrow">
+          <table class="mtable">
+            <thead><tr><th class="ta-l">Type of incorrect human response</th><th>Count</th></tr></thead>
+            <tbody>
+              <tr><td class="ta-l">Rotated, mirrored, reversed or reordered direction</td><td>13</td></tr>
+              <tr><td class="ta-l">Miscounted, misidentified or misjudged proximity</td><td>7</td></tr>
+              <tr><td class="ta-l">Missed the &ldquo;none / not visible&rdquo; option</td><td>2</td></tr>
+              <tr><td class="ta-l">Selected &ldquo;neither can reach&rdquo; despite a valid route</td><td>1</td></tr>
+              <tr class="total"><td class="ta-l">Total</td><td>23</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap narrow">
+          <table class="mtable">
+            <thead><tr><th class="ta-l"></th><th>Gem. corr.</th><th>Gem. incorr.</th><th>Total</th></tr></thead>
+            <tbody>
+              <tr><td class="ta-l">All evaluators correct</td><td>41</td><td>19</td><td>60</td></tr>
+              <tr><td class="ta-l">&ge;1 evaluator incorrect</td><td>11</td><td>10</td><td>21</td></tr>
+              <tr class="total"><td class="ta-l">Total</td><td>52</td><td>29</td><td>81</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="caption">
+        Audit of incorrect human responses (<em>left</em>) and cross-tabulation of human and Gemini-2.5-Pro
+        correctness on the same 81 questions (<em>right</em>).
+      </p>
+    </article>
+  </div>
+</section>
+
+<!-- ============================ VIEW AUGMENTATION ============================ -->
+<section class="section hero is-light" id="augmentation">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <p class="eyebrow">An initial step</p>
+      <h2 class="title is-3">Geometry-guided view augmentation</h2>
+      <p class="section-sub">Synthesizing the views between agents helps general models on cross-view tasks, but does not close the gap.</p>
+    </div>
+
+    <div class="columns is-centered va-grid">
+      <div class="column is-two-thirds">
+        <div class="content lines">
+          <p>
+            If the failures come from not being able to relate independent viewpoints, then showing the model what
+            lies <em>between</em> them should help. We reconstruct a 3D point cloud of the scene from the agents'
+            observations, interpolate camera poses between them, and render intermediate views from that geometry.
+            Those renders then guide a diffusion-based video generator, which produces a sequence of synthetic
+            frames revealing how the independent observations relate spatially.
+          </p>
+          <p>
+            The generated frames are supplied as auxiliary visual context, not as an extra agent: video-capable
+            models receive the video alongside the original images, image-only models receive sampled frames
+            appended to them, and the prompt states explicitly that these are supporting context.
+          </p>
+          <p>
+            The gains are category-specific rather than uniform. General MLLMs benefit most, particularly on
+            Navigation and Relative Position &mdash; Qwen2.5-VL-7B gains +1.1 overall, with +3.9 on Relative
+            Position and +4.5 on Occlusion. Spatial reasoning models benefit little or degrade: they already try to
+            infer geometric structure from the inputs, and diffusion-generated views introduce small geometric
+            inconsistencies that disturb precise metric reasoning.
+          </p>
+          <p>
+            Ablations confirm where the gain comes from. Twelve sampled frames works best; permuting the
+            interpolation order changes little; and replacing the synthesized views with cropped frames from the
+            original images does <em>not</em> reproduce the improvement. The benefit comes from the novel
+            viewpoints, not from having more frames.
+          </p>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <figure class="figure">
+          <picture><source srcset="static/images/figures/fig8_augmentation.webp" type="image/webp">
+          <img src="static/images/figures/fig8_augmentation.jpg" width="1100" height="1214" loading="lazy"
+               alt="Four stages: the agent views, a reconstructed 3D point cloud, interpolated video frames, and the resulting novel views."></picture>
+          <figcaption>From agent views to a reconstructed point cloud, interpolated video and novel views.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="table-wrap narrow">
+      <table class="mtable aug">
+        <thead>
+          <tr><th rowspan="2" class="ta-l">Model</th><th colspan="2" class="grp">Comp.</th><th colspan="3" class="grp">Static Perc.</th><th rowspan="2">Overall</th><th rowspan="2">Avg.</th></tr>
+          <tr><th>Ego.</th><th>Nav.</th><th>Dist.</th><th>Occ.</th><th>Rel.</th></tr>
+        </thead>
+        <tbody>
+          <tr class="blockhead"><td colspan="8" class="ta-l">Spatial models</td></tr>
+          <tr><td class="ta-l">VST-7B-RL</td><td>28.3</td><td>32.8</td><td>41.6</td><td>38.9</td><td>38.3</td><td>35.1</td><td>36.0</td></tr>
+          <tr class="syn"><td class="ta-l">+ Syn. View</td><td class="up">29.0</td><td class="up">35.4</td><td>25.0</td><td>36.1</td><td class="up">41.5</td><td>33.2</td><td>33.4</td></tr>
+          <tr class="delta"><td class="ta-l"></td><td class="p">+0.7</td><td class="p">+2.6</td><td class="n">&minus;16.6</td><td class="n">&minus;2.8</td><td class="p">+3.2</td><td class="n">&minus;1.9</td><td class="n">&minus;2.6</td></tr>
+          <tr><td class="ta-l">VLM-3R-7B</td><td>31.4</td><td>32.9</td><td>44.4</td><td>40.8</td><td>44.0</td><td>37.7</td><td>38.7</td></tr>
+          <tr class="syn"><td class="ta-l">+ Syn. View</td><td class="up">31.9</td><td>32.6</td><td>43.8</td><td>39.4</td><td class="up">46.0</td><td class="up">37.8</td><td>38.7</td></tr>
+          <tr class="delta"><td class="ta-l"></td><td class="p">+0.5</td><td class="n">&minus;0.3</td><td class="n">&minus;0.6</td><td class="n">&minus;1.4</td><td class="p">+2.0</td><td class="p">+0.1</td><td>0.0</td></tr>
+          <tr class="blockhead"><td colspan="8" class="ta-l">General models</td></tr>
+          <tr><td class="ta-l">LLaVA-Video-7B</td><td>25.6</td><td>31.3</td><td>40.5</td><td>36.5</td><td>32.7</td><td>35.6</td><td>33.2</td></tr>
+          <tr class="syn"><td class="ta-l">+ Syn. View</td><td>24.7</td><td class="up">32.9</td><td>40.2</td><td>33.6</td><td class="up">35.6</td><td>32.9</td><td class="up">33.4</td></tr>
+          <tr class="delta"><td class="ta-l"></td><td class="n">&minus;0.9</td><td class="p">+1.6</td><td class="n">&minus;0.3</td><td class="n">&minus;2.9</td><td class="p">+2.9</td><td class="n">&minus;2.7</td><td class="p">+0.2</td></tr>
+          <tr><td class="ta-l">Qwen2.5-VL-7B</td><td>30.6</td><td>32.7</td><td>47.5</td><td>49.3</td><td>42.9</td><td>38.9</td><td>40.6</td></tr>
+          <tr class="syn"><td class="ta-l">+ Syn. View</td><td>30.6</td><td class="up">33.3</td><td>45.2</td><td class="up">53.8</td><td class="up">46.8</td><td class="up best">40.0</td><td class="up best">41.9</td></tr>
+          <tr class="delta"><td class="ta-l"></td><td>0.0</td><td class="p">+0.6</td><td class="n">&minus;2.3</td><td class="p">+4.5</td><td class="p">+3.9</td><td class="p">+1.1</td><td class="p">+1.3</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption">Shaded cells improve after adding synthetic views; the best overall gain is outlined.</p>
+  </div>
+</section>
+
+<!-- ============================ QUALITATIVE EXPLORER ============================ -->
+<section class="section" id="qualitative">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <p class="eyebrow">Model predictions</p>
+      <h2 class="title is-3">What the models actually answered</h2>
+      <p class="section-sub">Pick a question and compare four models against the ground truth.</p>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content lines">
+          <p>
+            These are real predictions on real benchmark items, not illustrations. Closed-source models are
+            generally stronger where coordinating observations across agents is essential; open-source models more
+            often latch onto partial cues from a single viewpoint instead of reconciling information across views,
+            and the gap widens in the three-agent setting.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="explorer" id="explorer" data-widget="explorer">
+      <p class="loading">Loading examples&hellip;</p>
+    </div>
+
+    <figure class="figure" style="margin-top:3rem">
+      <picture><source srcset="static/images/figures/fig22_qualitative.webp" type="image/webp">
+      <img src="static/images/figures/fig22_qualitative.jpg" width="1110" height="1734" loading="lazy"
+           alt="Grid of qualitative examples across the five categories, each with the ground-truth option in a green box followed by several models' predictions."></picture>
+      <figcaption>
+        <strong>Qualitative analysis across all five categories.</strong> Ground truth is boxed in green, followed
+        by the predictions of several models, for both two-agent and three-agent observation sets.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ DATASET ============================ -->
+<section class="section hero is-light" id="dataset">
+  <div class="container is-max-desktop">
+    <div class="section-head">
+      <p class="eyebrow">Get the data</p>
+      <h2 class="title is-3">Dataset</h2>
+      <p class="section-sub">MaRiO is on Hugging Face under CC&nbsp;BY-NC&nbsp;4.0.</p>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content lines">
+          <pre class="code"><code>from datasets import load_dataset
+
+ds = load_dataset("mariobench2026/MaRiO", split="test")
+ex = ds[0]
+# ex["images"]        list of 2-3 agent observations, in agent order
+# ex["question"]      full prompt, ending in the question
+# ex["choices"]       four options, order randomized
+# ex["ground_truth"]  the correct option text
+# ex["skill"]         one of the five reasoning tasks</code></pre>
+          <p>
+            The <em>i</em>-th image is the observation of agent <em>i</em>; that mapping is stated in the prompt
+            rather than inferred from image order, and it is reinforced with inline textual references for
+            interfaces that support interleaved image&ndash;text input.
+          </p>
+          <p class="src-note">
+            Source assets keep their own licences: RealEstate10K (per that project's redistribution terms),
+            NAVI (CC&nbsp;BY&nbsp;4.0), VirtualHome (MIT), Habitat-Sim (MIT, with bundled scenes carrying separate
+            licences) and AI2-THOR (Apache&nbsp;2.0). The release contains static indoor and object-centric scene
+            imagery only &mdash; no human faces, no personally identifying information, and no model weights.
+          </p>
+        </div>
+        <div class="has-text-centered" style="margin-top:1.75rem">
+          <a href="https://huggingface.co/datasets/mariobench2026/MaRiO" target="_blank" rel="noopener"
+             class="external-link button is-normal is-rounded is-dark">
+            <span class="icon">🤗</span><span>Browse the dataset</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ BIBTEX ============================ -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <div class="bibtex-head">
+      <h2 class="title">BibTeX</h2>
+      <button class="button is-small is-rounded" data-action="copy-bibtex">Copy</button>
+    </div>
+<pre><code id="bibtex">@inproceedings{redmond2026mario,
+  title     = {MaRiO: Multi-agent Collaborative Reasoning via Shared Observations in MLLMs},
+  author    = {Redmond, Nathaniel and Tito Cruz, Fidel Omar and Sharma, Devansh and
+               Azad, Shehreen and Mitra, Sirshapan and Vyas, Shruti and Rawat, Yogesh S.},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS),
+               Datasets and Benchmarks Track},
+  year      = {2026}
+}</code></pre>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This page was built using the
+            <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>,
+            adapted from the <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project page.
+          </p>
+          <p>
+            Website content is licensed under a
+            <a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            The MaRiO dataset is released under CC&nbsp;BY-NC&nbsp;4.0.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

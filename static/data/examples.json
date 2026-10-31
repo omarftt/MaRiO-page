@@ -1,0 +1,419 @@
+{
+ "items": [
+  {
+   "id": 9,
+   "skill": "distance_awareness",
+   "task": "Distance Awareness",
+   "group": "static",
+   "agents": 2,
+   "images": [
+    "q9_a1",
+    "q9_a2"
+   ],
+   "question": "Which agent is closer to the clock?",
+   "choices": [
+    "Agent 2",
+    "Both agents equally",
+    "Agent 1",
+    "Cannot be determined"
+   ],
+   "answer": "Agent 2",
+   "predictions": [
+    {
+     "model": "Gemini-2.5-Pro",
+     "answer": "Agent 2",
+     "correct": true
+    },
+    {
+     "model": "Qwen2.5-VL-7B",
+     "answer": "Agent 2",
+     "correct": true
+    },
+    {
+     "model": "InternVL3-8B",
+     "answer": "Agent 2",
+     "correct": true
+    },
+    {
+     "model": "Ovis2.5-9B",
+     "answer": "Agent 2",
+     "correct": true
+    }
+   ]
+  },
+  {
+   "id": 407,
+   "skill": "distance_awareness",
+   "task": "Distance Awareness",
+   "group": "static",
+   "agents": 3,
+   "images": [
+    "q407_a1",
+    "q407_a2",
+    "q407_a3"
+   ],
+   "question": "Which agent is farthest from the window?",
+   "choices": [
+    "Agent 3",
+    "Agent 1",
+    "Both agents equally",
+    "Agent 2"
+   ],
+   "answer": "Agent 3",
+   "predictions": [
+    {
+     "model": "Gemini-2.5-Pro",
+     "answer": "Agent 3",
+     "correct": true
+    },
+    {
+     "model": "Qwen2.5-VL-7B",
+     "answer": "Agent 2",
+     "correct": false
+    },
+    {
+     "model": "InternVL3-8B",
+     "answer": "Agent 2",
+     "correct": false
+    },
+    {
+     "model": "Ovis2.5-9B",
+     "answer": "Agent 3",
+     "correct": true
+    }
+   ]
+  },
+  {
+   "id": 45,
+   "skill": "occlusion_visibility",
+   "task": "Occlusion / Visibility",
+   "group": "static",
+   "agents": 2,
+   "images": [
+    "q45_a1",
+    "q45_a2"
+   ],
+   "question": "How many lamps are on the table in front of Agent 1?",
+   "choices": [
+    "1 lamp",
+    "2 lamps",
+    "0 lamps",
+    "3 lamps"
+   ],
+   "answer": "2 lamps",
+   "predictions": [
+    {
+     "model": "Gemini-2.5-Pro",
+     "answer": "2 lamps",
+     "correct": true
+    },
+    {
+     "model": "Qwen2.5-VL-7B",
+     "answer": "1 lamp",
+     "correct": false
+    },
+    {
+     "model": "InternVL3-8B",
+     "answer": "2 lamps",
+     "correct": true
+    },
+    {
+     "model": "Ovis2.5-9B",
+     "answer": "1 lamp",
+     "correct": false
+    }
+   ]
+  },
+  {
+   "id": 405,
+   "skill": "occlusion_visibility",
+   "task": "Occlusion / Visibility",
+   "group": "static",
+   "agents": 3,
+   "images": [
+    "q405_a1",
+    "q405_a2",
+    "q405_a3"
+   ],
+   "question": "How many cumulative unique lamps are observable across all 3 agents' views?",
+   "choices": [
+    "2 unique lamps",
+    "3 unique lamps",
+    "1 unique lamp",
+    "4 unique lamps"
+   ],
+   "answer": "2 unique lamps",
+   "predictions": [
+    {
+     "model": "Gemini-2.5-Pro",
+     "answer": "4 unique lamps",
+     "correct": false
+    },
+    {
+     "model": "Qwen2.5-VL-7B",
+     "answer": "2 unique lamps",
+     "correct": true
+    },
+    {
+     "model": "InternVL3-8B",
+     "answer": "2 unique lamps",
+     "correct": true
+    },
+    {
+     "model": "Ovis2.5-9B",
+     "answer": "3 unique lamps",
+     "correct": false
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "skill": "relative_agents",
+   "task": "Relative Position",
+   "group": "static",
+   "agents": 2,
+   "images": [
+    "q1_a1",
+    "q1_a2"
+   ],
+   "question": "Which agent has a top-down view of the fruit bowl?",
+   "choices": [
+    "Both agents",
+    "Agent 2",
+    "Neither agent",
+    "Agent 1"
+   ],
+   "answer": "Agent 1",
+   "predictions": [
+    {
+     "model": "Gemini-2.5-Pro",
+     "answer": "Agent 1",
+     "correct": true
+    },
+    {
+     "model": "Qwen2.5-VL-7B",
+     "answer": "Agent 1",
+     "correct": true
+    },
+    {
+     "model": "InternVL3-8B",
+     "answer": "Agent 1",
+     "correct": true
+    },
+    {
+     "model": "Ovis2.5-9B",
+     "answer": "Agent 1",
+     "correct": true
+    }
+   ]
+  },
+  {
+   "id": 413,
+   "skill": "relative_agents",
+   "task": "Relative Position",
+   "group": "static",
+   "agents": 3,
+   "images": [
+    "q413_a1",
+    "q413_a2",
+    "q413_a3"
+   ],
+   "question": "Which agents have a window behind them?",
+   "choices": [
+    "Agent 1 and Agent 2",
+    "Agent 2 and Agent 3",
+    "Agent 3 only",
+    "All three agents (Agent 1, Agent 2, and Agent 3)"
+   ],
+   "answer": "Agent 2 and Agent 3",
+   "predictions": [
+    {
+     "model": "Gemini-2.5-Pro",
+     "answer": "Agent 2 and Agent 3",
+     "correct": true
+    },
+    {
+     "model": "Qwen2.5-VL-7B",
+     "answer": "Agent 1 and Agent 2",
+     "correct": false
+    },
+    {
+     "model": "InternVL3-8B",
+     "answer": "Agent 1 and Agent 2",
+     "correct": false
+    },
+    {
+     "model": "Ovis2.5-9B",
+     "answer": "Agent 1 and Agent 2",
+     "correct": false
+    }
+   ]
+  },
+  {
+   "id": 135,
+   "skill": "egocentric_motion",
+   "task": "Egocentric Motion",
+   "group": "comp",
+   "agents": 2,
+   "images": [
+    "q135_a1",
+    "q135_a2"
+   ],
+   "question": "If Agent 1 turns around, what object will Agent 1 see?",
+   "choices": [
+    "A bathroom counter",
+    "A bathtub",
+    "Two towel racks with towels",
+    "A wall shelf with a candle"
+   ],
+   "answer": "A bathroom counter",
+   "predictions": [
+    {
+     "model": "Gemini-2.5-Pro",
+     "answer": "A bathroom counter",
+     "correct": true
+    },
+    {
+     "model": "Qwen2.5-VL-7B",
+     "answer": "A bathroom counter",
+     "correct": true
+    },
+    {
+     "model": "InternVL3-8B",
+     "answer": "A wall shelf with a candle",
+     "correct": false
+    },
+    {
+     "model": "Ovis2.5-9B",
+     "answer": "A bathroom counter",
+     "correct": true
+    }
+   ]
+  },
+  {
+   "id": 487,
+   "skill": "egocentric_motion",
+   "task": "Egocentric Motion",
+   "group": "comp",
+   "agents": 3,
+   "images": [
+    "q487_a1",
+    "q487_a2",
+    "q487_a3"
+   ],
+   "question": "Which direction should Agent 1 turn to face the fridge?",
+   "choices": [
+    "Turn right",
+    "Turn left",
+    "Turn around",
+    "Go straight forward"
+   ],
+   "answer": "Turn right",
+   "predictions": [
+    {
+     "model": "Gemini-2.5-Pro",
+     "answer": "Turn right",
+     "correct": true
+    },
+    {
+     "model": "Qwen2.5-VL-7B",
+     "answer": "Turn right",
+     "correct": true
+    },
+    {
+     "model": "InternVL3-8B",
+     "answer": "Turn right",
+     "correct": true
+    },
+    {
+     "model": "Ovis2.5-9B",
+     "answer": "Turn right",
+     "correct": true
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "skill": "navigation",
+   "task": "Navigation",
+   "group": "comp",
+   "agents": 2,
+   "images": [
+    "q11_a1",
+    "q11_a2"
+   ],
+   "question": "What navigation steps should Agent 2 follow to reach the fridge and the microwave?",
+   "choices": [
+    "Move left, then move backward",
+    "Move right, then move forward",
+    "Move forward, then turn left",
+    "Move left, then move forward"
+   ],
+   "answer": "Move left, then move forward",
+   "predictions": [
+    {
+     "model": "Gemini-2.5-Pro",
+     "answer": "Move left, then move forward",
+     "correct": true
+    },
+    {
+     "model": "Qwen2.5-VL-7B",
+     "answer": "Move left, then move forward",
+     "correct": true
+    },
+    {
+     "model": "InternVL3-8B",
+     "answer": "Move left, then move forward",
+     "correct": true
+    },
+    {
+     "model": "Ovis2.5-9B",
+     "answer": "Move forward, then turn left",
+     "correct": false
+    }
+   ]
+  },
+  {
+   "id": 419,
+   "skill": "navigation",
+   "task": "Navigation",
+   "group": "comp",
+   "agents": 3,
+   "images": [
+    "q419_a1",
+    "q419_a2",
+    "q419_a3"
+   ],
+   "question": "If Agent 1 decides to move directly toward Agent 2, is there any obstacle between them?",
+   "choices": [
+    "Yes (the obstacle is a coffee table)",
+    "Yes (the obstacle is a desktop)",
+    "Yes (the obstacle is a floor lamp)",
+    "No (there are no obstacles)"
+   ],
+   "answer": "Yes (the obstacle is a desktop)",
+   "predictions": [
+    {
+     "model": "Gemini-2.5-Pro",
+     "answer": "Yes (the obstacle is a coffee table)",
+     "correct": false
+    },
+    {
+     "model": "Qwen2.5-VL-7B",
+     "answer": "No (there are no obstacles)",
+     "correct": false
+    },
+    {
+     "model": "InternVL3-8B",
+     "answer": "No (there are no obstacles)",
+     "correct": false
+    },
+    {
+     "model": "Ovis2.5-9B",
+     "answer": "Yes (the obstacle is a coffee table)",
+     "correct": false
+    }
+   ]
+  }
+ ]
+}
