@@ -1,4 +1,4 @@
-/* MaRiO project page — leaderboard table, task gallery, qualitative explorer. */
+/* MaRiO project page: one example explorer, plus BibTeX copy. */
 (function () {
   'use strict';
 
@@ -15,78 +15,6 @@
     return n;
   }
 
-  function getJSON(url) {
-    return fetch(url).then(function (r) {
-      if (!r.ok) throw new Error(url + ': ' + r.status);
-      return r.json();
-    });
-  }
-
-  /* ---------------------------------------------------------------- leaderboard */
-
-  function buildLeaderboard(host, data) {
-    var cols = data.columns.concat(['Overall', 'Avg']);
-    var table = el('table', 'mtable lb');
-
-    var thead = el('thead');
-    var r1 = el('tr');
-    var th = el('th', 'ta-l', 'Model');
-    th.rowSpan = 2;
-    r1.appendChild(th);
-    Object.keys(data.groups).forEach(function (g) {
-      var c = el('th', 'grp', g);
-      c.colSpan = data.groups[g].length;
-      r1.appendChild(c);
-    });
-    ['Overall', 'Avg.'].forEach(function (t) {
-      var c = el('th', null, t);
-      c.rowSpan = 2;
-      r1.appendChild(c);
-    });
-    thead.appendChild(r1);
-
-    var r2 = el('tr');
-    data.columns.forEach(function (c) { r2.appendChild(el('th', null, c + '.')); });
-    thead.appendChild(r2);
-    table.appendChild(thead);
-
-    var tbody = el('tbody');
-
-    function addRow(row, extraCls) {
-      var tr = el('tr', extraCls || null);
-      tr.appendChild(el('td', 'ta-l model', row.model));
-      cols.forEach(function (c) {
-        var td = el('td', null, row[c].toFixed(1));
-        var g = row.grp && row.grp[c];
-        if (g === 1) td.classList.add('g1');
-        else if (g === 2) td.classList.add('g2');
-        if (row.glb && row.glb[c] === 1) td.classList.add('global');
-        tr.appendChild(td);
-      });
-      tbody.appendChild(tr);
-    }
-
-    data.reference.forEach(function (row, i) {
-      addRow(row, i === 0 ? 'ref human' : 'ref');
-    });
-
-    data.blocks.forEach(function (block) {
-      var tr = el('tr', 'blockhead');
-      var td = el('td', 'ta-l');
-      td.colSpan = cols.length + 1;
-      td.appendChild(el('span', 'pin', block.name));
-      tr.appendChild(td);
-      tbody.appendChild(tr);
-      block.rows.forEach(function (row) { addRow(row); });
-    });
-
-    table.appendChild(tbody);
-    host.innerHTML = '';
-    host.appendChild(table);
-  }
-
-  /* ------------------------------------------------------------- shared pieces */
-
   function viewStrip(item) {
     var wrap = el('div', 'views n' + item.agents);
     item.images.forEach(function (stem, i) {
@@ -98,10 +26,8 @@
       var img = el('img');
       img.src = 'static/images/tasks/' + stem + '.jpg';
       img.loading = 'lazy';
-      img.width = 640;
-      img.alt = 'Agent ' + (i + 1) + "'s view of the scene";
-      pic.appendChild(src);
-      pic.appendChild(img);
+      img.alt = "Agent " + (i + 1) + "'s view of the scene";
+      pic.appendChild(src); pic.appendChild(img);
       fig.appendChild(pic);
       fig.appendChild(el('figcaption', null, 'Agent ' + (i + 1)));
       wrap.appendChild(fig);
@@ -109,18 +35,15 @@
     return wrap;
   }
 
-  function metaRow(item, withAgentChip) {
-    var meta = el('div', 'q-meta');
-    meta.appendChild(el('span', 'chip ' + item.group, item.task));
-    if (withAgentChip !== false) meta.appendChild(el('span', 'chip', item.agents + ' agents'));
-    return meta;
-  }
+  function build(host, items) {
+    host.innerHTML = '';
+    var tabsHost = el('div', 'exp-tabs');
+    var panel = el('div', 'exp-panel');
+    tabsHost.setAttribute('role', 'tablist');
+    tabsHost.setAttribute('aria-label', 'Reasoning tasks');
+    host.appendChild(tabsHost);
+    host.appendChild(panel);
 
-  /* ------------------------------------------------------------- task gallery */
-
-  function buildGallery(host, items) {
-    var tabsHost = host.querySelector('.gal-tabs');
-    var panel = host.querySelector('.gal-panel');
     var tasks = TASK_ORDER.filter(function (t) {
       return items.some(function (i) { return i.task === t; });
     });
@@ -137,10 +60,11 @@
       var item = pool.filter(function (i) { return i.agents === want; })[0] || pool[0];
 
       panel.innerHTML = '';
+      panel.classList.remove('revealed');
 
-      var meta = metaRow(item, pool.length < 2);
       if (pool.length > 1) {
-        var sw = el('span', 'exp-nav seg');
+        var bar = el('div', 'exp-bar');
+        var seg = el('span', 'seg');
         pool.forEach(function (p) {
           var on = p.agents === item.agents;
           var b = el('button', on ? 'is-on' : null, p.agents + ' agents');
@@ -151,17 +75,19 @@
             state.agents[state.task] = p.agents;
             render();
           });
-          sw.appendChild(b);
+          seg.appendChild(b);
         });
-        meta.appendChild(sw);
+        bar.appendChild(seg);
+        panel.appendChild(bar);
       }
-      panel.appendChild(meta);
+
       panel.appendChild(viewStrip(item));
       panel.appendChild(el('p', 'q-text', item.question));
 
       var opts = el('div', 'opts');
-      var revealed = false;
       var buttons = [];
+      var revealed = false;
+      var btn, note, preds;
 
       function reveal() {
         if (revealed) return;
@@ -172,7 +98,8 @@
         });
         btn.disabled = true;
         btn.textContent = 'Answer shown';
-        note.textContent = 'Correct answer: ' + item.answer;
+        note.textContent = '';
+        preds.hidden = false;
       }
 
       item.choices.forEach(function (choice, i) {
@@ -188,19 +115,29 @@
       panel.appendChild(opts);
 
       var row = el('div', 'reveal-row');
-      var btn = el('button', 'reveal', 'Reveal answer');
+      btn = el('button', 'reveal', 'Reveal answer');
       btn.type = 'button';
       btn.addEventListener('click', reveal);
-      var note = el('span', 'answer-note', 'Pick an option, or reveal it.');
-      row.appendChild(btn);
-      row.appendChild(note);
+      note = el('span', 'answer-note', 'Pick an option, or reveal it, to see what the models answered.');
+      row.appendChild(btn); row.appendChild(note);
       panel.appendChild(row);
-      panel.classList.remove('revealed');
+
+      preds = el('div', 'preds');
+      preds.hidden = true;
+      preds.appendChild(el('h4', null, 'What the models answered'));
+      item.predictions.forEach(function (p) {
+        var d = el('div', 'pred ' + (p.correct ? 'ok' : 'bad'));
+        d.appendChild(el('span', 'who', p.model));
+        d.appendChild(el('span', 'ans', p.answer));
+        d.appendChild(el('span', 'mark', p.correct ? '✓' : '✗'));
+        preds.appendChild(d);
+      });
+      panel.appendChild(preds);
     }
 
     tasks.forEach(function (t) {
       var group = items.filter(function (i) { return i.task === t; })[0].group;
-      var b = el('button', 'gal-tab');
+      var b = el('button', 'exp-tab');
       b.type = 'button';
       b.setAttribute('role', 'tab');
       b.dataset.task = t;
@@ -212,106 +149,6 @@
 
     render();
   }
-
-  /* --------------------------------------------------------- qualitative explorer */
-
-  function buildExplorer(host, items) {
-    host.innerHTML = '';
-    var bar = el('div', 'exp-bar');
-    var panel = el('div', 'exp-panel');
-
-    var taskSel = el('select');
-    taskSel.setAttribute('aria-label', 'Filter by task');
-    var optAll = el('option', null, 'All tasks');
-    optAll.value = '';
-    taskSel.appendChild(optAll);
-    TASK_ORDER.forEach(function (t) {
-      if (!items.some(function (i) { return i.task === t; })) return;
-      var o = el('option', null, t);
-      o.value = t;
-      taskSel.appendChild(o);
-    });
-
-    var agentSel = el('select');
-    agentSel.setAttribute('aria-label', 'Filter by number of agents');
-    [['', 'Any'], ['2', '2 agents'], ['3', '3 agents']].forEach(function (p) {
-      var o = el('option', null, p[1]);
-      o.value = p[0];
-      agentSel.appendChild(o);
-    });
-
-    var lblT = el('label', null, 'Task');
-    var lblA = el('label', null, 'Agents');
-    bar.appendChild(lblT); bar.appendChild(taskSel);
-    bar.appendChild(lblA); bar.appendChild(agentSel);
-
-    var nav = el('div', 'exp-nav');
-    var prev = el('button', null, '← Prev');
-    var count = el('span', 'exp-count', '');
-    var next = el('button', null, 'Next →');
-    prev.type = next.type = 'button';
-    nav.appendChild(prev); nav.appendChild(count); nav.appendChild(next);
-    bar.appendChild(nav);
-
-    host.appendChild(bar);
-    host.appendChild(panel);
-
-    var idx = 0;
-
-    function pool() {
-      return items.filter(function (i) {
-        return (!taskSel.value || i.task === taskSel.value) &&
-               (!agentSel.value || String(i.agents) === agentSel.value);
-      });
-    }
-
-    function render() {
-      var list = pool();
-      if (!list.length) {
-        panel.innerHTML = '';
-        panel.appendChild(el('p', 'loading', 'No example matches that combination.'));
-        count.textContent = '0 of 0';
-        prev.disabled = next.disabled = true;
-        return;
-      }
-      if (idx >= list.length) idx = 0;
-      if (idx < 0) idx = list.length - 1;
-      var item = list[idx];
-
-      count.textContent = (idx + 1) + ' of ' + list.length;
-      prev.disabled = next.disabled = list.length < 2;
-
-      panel.innerHTML = '';
-      panel.appendChild(metaRow(item));
-      panel.appendChild(viewStrip(item));
-      panel.appendChild(el('p', 'q-text', item.question));
-
-      var preds = el('div', 'preds');
-      preds.appendChild(el('h4', null, 'Ground truth and model predictions'));
-
-      function line(cls, who, answer, mark) {
-        var d = el('div', 'pred ' + cls);
-        d.appendChild(el('span', 'who', who));
-        d.appendChild(el('span', 'ans', answer));
-        d.appendChild(el('span', 'mark', mark));
-        return d;
-      }
-      preds.appendChild(line('gt', 'Ground truth', item.answer, '✓'));
-      item.predictions.forEach(function (p) {
-        preds.appendChild(line(p.correct ? 'ok' : 'bad', p.model, p.answer, p.correct ? '✓' : '✗'));
-      });
-      panel.appendChild(preds);
-    }
-
-    prev.addEventListener('click', function () { idx -= 1; render(); });
-    next.addEventListener('click', function () { idx += 1; render(); });
-    taskSel.addEventListener('change', function () { idx = 0; render(); });
-    agentSel.addEventListener('change', function () { idx = 0; render(); });
-
-    render();
-  }
-
-  /* ---------------------------------------------------------------- bibtex copy */
 
   function wireBibtex() {
     var btn = document.querySelector('[data-action="copy-bibtex"]');
@@ -326,34 +163,16 @@
     });
   }
 
-  /* ---------------------------------------------------------------------- boot */
-
   document.addEventListener('DOMContentLoaded', function () {
     wireBibtex();
-
-    var lb = document.getElementById('leaderboard');
-    if (lb) {
-      getJSON('static/data/leaderboard.json')
-        .then(function (d) { buildLeaderboard(lb, d); })
-        .catch(function (e) {
-          lb.innerHTML = '<p class="loading">Could not load the results table.</p>';
-          console.error(e);
-        });
-    }
-
-    var gal = document.getElementById('gallery');
-    var exp = document.getElementById('explorer');
-    if (gal || exp) {
-      getJSON('static/data/examples.json')
-        .then(function (d) {
-          if (gal) buildGallery(gal, d.items);
-          if (exp) buildExplorer(exp, d.items);
-        })
-        .catch(function (e) {
-          if (gal) gal.innerHTML = '<p class="loading">Could not load the examples.</p>';
-          if (exp) exp.innerHTML = '<p class="loading">Could not load the examples.</p>';
-          console.error(e);
-        });
-    }
+    var host = document.getElementById('explorer');
+    if (!host) return;
+    fetch('static/data/examples.json')
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) { build(host, d.items); })
+      .catch(function (e) {
+        host.innerHTML = '<p class="loading">Could not load the examples.</p>';
+        console.error(e);
+      });
   });
 })();

@@ -24,17 +24,19 @@ index.html
 static/
   css/   bulma.min.css · index.css · mario.css   (mario.css is the only custom sheet)
   js/    mario.js
-  data/  leaderboard.json · examples.json
-  images/figures/  paper figures (webp + jpg/png fallback)
+  data/  examples.json
+  images/figures/  figures cropped from the PDF at 600 dpi (webp + jpg/png fallback)
+        /tables/   the paper's own tables, cropped at 600 dpi
         /tasks/    benchmark sample observations for the two widgets
         /logos/
 ```
 
-Button icons are inline SVG, so there is no icon bundle: the whole first paint
-is about 410 KB. `mario.js` builds three things: the results table (`#leaderboard`), the task
-gallery (`#tasks`) and the qualitative explorer (`#qualitative`). The last two
-share `static/data/examples.json`, which holds ten real benchmark items together
-with the real predictions of four models on them.
+Results tables are images cropped from the paper rather than hand-written HTML,
+matching the SignRR page. Button icons are inline SVG, so there is no icon bundle.
+
+`mario.js` builds one widget, the example explorer in the Benchmark section. It
+reads `static/data/examples.json`, which holds ten real benchmark items with the
+real predictions of four models on them.
 
 ## Before publishing
 
