@@ -13,8 +13,7 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-A static server is required: the leaderboard and the two interactive widgets are
-built in JavaScript from `static/data/*.json` via `fetch`, which does not work
+A static server is required: the example explorer is built in JavaScript from `static/data/*.json` via `fetch`, which does not work
 from a `file://` URL.
 
 ## Layout
@@ -27,7 +26,7 @@ static/
   data/  examples.json
   images/figures/  figures cropped from the PDF at 600 dpi (webp + jpg/png fallback)
         /tables/   the paper's own tables, cropped at 600 dpi
-        /tasks/    benchmark sample observations for the two widgets
+        /tasks/    benchmark sample observations for the explorer
         /logos/
 ```
 
@@ -43,7 +42,8 @@ real predictions of four models on them.
 - [ ] Confirm the author list and affiliations (see the `citation_author` meta tags).
 - [ ] Swap the two "coming soon" buttons for the paper PDF and code repo links.
 - [ ] Remove `<meta name="robots" content="noindex, nofollow">` from `index.html`.
-- [ ] Add `static/images/social_preview.png` and point the `og:image` tag at it.
+- [ ] Confirm the venue string. The PDF footer says "Track on Evaluations and Datasets";
+      the page says "Datasets and Benchmarks Track" in three places.
 
 ## Deploy
 

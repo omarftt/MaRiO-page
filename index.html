@@ -12,11 +12,11 @@
 <meta property="og:title" content="MaRiO: Multi-agent Collaborative Reasoning via Shared Observations in MLLMs">
 <meta property="og:description" content="Two or three agents share a scene but not a coordinate frame. Given only their raw views, the best of 23 models scores 55.7 where humans score 73.2.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="static/images/figures/teaser_scene.jpg">
+<meta property="og:image" content="https://omarftt.github.io/MaRiO-page/static/images/figures/teaser_scene.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MaRiO: Multi-agent Collaborative Reasoning in MLLMs">
 <meta name="twitter:description" content="A benchmark for reasoning across independently oriented agent viewpoints, with no shared geometry.">
-<meta name="twitter:image" content="static/images/figures/teaser_scene.jpg">
+<meta name="twitter:image" content="https://omarftt.github.io/MaRiO-page/static/images/figures/teaser_scene.jpg">
 
 <meta name="citation_title" content="MaRiO: Multi-agent Collaborative Reasoning via Shared Observations in MLLMs">
 <meta name="citation_author" content="Redmond, Nathaniel">
@@ -37,7 +37,9 @@
 <script defer src="static/js/mario.js"></script>
 </head>
 <body>
+<a class="skip-link" href="#motivation">Skip to content</a>
 
+<main>
 <!-- ======================= 1. HERO ======================= -->
 <section class="hero">
   <div class="hero-body">
@@ -63,13 +65,13 @@
       <p class="eql-cntrb"><sup>*</sup>Equal contribution</p>
 
       <div class="logo-row">
-        <img src="static/images/logos/ucf.png" alt="University of Central Florida" height="52">
+        <img src="static/images/logos/ucf.png" alt="University of Central Florida" width="39" height="52">
       </div>
 
       <p class="venue">NeurIPS 2026, Datasets and Benchmarks Track</p>
 
       <div class="publication-links">
-        <a href="#explorer" class="external-link button is-rounded is-try">
+        <a href="#explorer" class="button is-rounded is-try">
           <span class="icon"><svg class="ico" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM176 168v176c0 8.6 4.6 16.5 12.1 20.8s16.6 4.2 24-.2l144-88c7.1-4.4 11.5-12.1 11.5-20.6s-4.4-16.2-11.5-20.6l-144-88c-7.4-4.5-16.6-4.6-24-.2S176 159.4 176 168z"/></svg></span>
           <span>Try an example</span></a>
         <span class="link-block">
@@ -87,7 +89,7 @@
         <span class="link-block">
           <a href="https://huggingface.co/datasets/mariobench2026/MaRiO" target="_blank" rel="noopener"
              class="external-link button is-rounded is-dark">
-            <span class="icon">🤗</span><span>Dataset</span></a>
+            <span class="icon" aria-hidden="true">🤗</span><span>Dataset</span></a>
         </span>
       </div>
 
@@ -108,7 +110,7 @@
         <div class="teaser-agents">
           <picture><source srcset="static/images/figures/teaser_agent1.webp" type="image/webp">
           <img src="static/images/figures/teaser_agent1.jpg" width="620" height="361"
-               alt="Agent 1 looks down a hallway towards an armchair and a staircase."></picture>
+               alt="Agent 1 looks down a hallway towards two armchairs and a staircase."></picture>
           <picture><source srcset="static/images/figures/teaser_agent2.webp" type="image/webp">
           <img src="static/images/figures/teaser_agent2.jpg" width="620" height="365"
                alt="Agent 2 faces a staircase with a bicycle and a potted plant beside it."></picture>
@@ -124,7 +126,7 @@
       <div class="teaser-q">
         <p class="q">What steps should Agent 3 take to get Agent 1 directly in front of it?</p>
         <ol class="teaser-opts">
-          <li class="is-answer">Move forward, turn right, move forward, turn right</li>
+          <li class="is-answer">Move forward, turn right, move forward, turn right<span class="sr-only"> (correct answer)</span></li>
           <li>Move forward, turn left, move forward, turn right</li>
           <li>Move forward, turn right, move backward, turn right</li>
           <li>Turn around, move backward, turn right, move forward</li>
@@ -153,8 +155,8 @@
           state-of-the-art MLLMs on it. The best of them scores 55.7 where humans score 73.2 and chance is
           23.9. Reading a spatial fact off a matched pair of views is the easy part. What models cannot do
           is work out which part of one view corresponds to which part of another, and the shortfall grows
-          when a third agent is added. Geometry-guided synthetic views recover about one point, and only
-          for general-purpose models.
+          when a third agent is added. Geometry-guided synthetic views win back 1.1 points for one model and leave the
+          rest flat or worse.
         </p>
       </div>
     </div></div>
@@ -170,10 +172,10 @@
     </div>
 
     <figure class="table-figure">
-      <div class="table-scroll"><div class="hl-frame">
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll sideways to see all columns"><div class="hl-frame">
         <picture>
           <source srcset="static/images/tables/table1_comparison.webp" type="image/webp">
-          <img src="static/images/tables/table1_comparison.png" width="2400" height="799" loading="lazy"
+          <img src="static/images/tables/table1_comparison.png" width="2400" height="786" loading="lazy"
                alt="Comparison table. MaRiO is the only benchmark listed that is multi-agent, has independent camera geometry and provides nothing beyond RGB.">
         </picture>
         <span class="row-outline" style="left:0.3%; top:87.4%; width:99.4%; height:9.4%"></span>
@@ -221,8 +223,9 @@
         <p>Distance Awareness, Occlusion and Relative Position ask for one spatial fact once the views are
            matched. Egocentric Motion and Navigation ask the model to compose a transformation between
            frames.</p>
-        <p>Three annotators wrote and cross-checked every question. An LLM polished phrasing and drafted
-           distractors. Every ground-truth label is human.</p>
+        <p>Three domain-expert annotators drafted and reviewed every question, and a further annotator
+           cross-verified them. An LLM polished phrasing and drafted distractors. Every ground-truth label
+           is human.</p>
       </div>
     </div></div>
 
@@ -241,10 +244,10 @@
     </div>
 
     <figure class="table-figure">
-      <div class="table-scroll"><div class="hl-frame">
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll sideways to see all columns"><div class="hl-frame">
         <picture>
           <source srcset="static/images/tables/table2_results.webp" type="image/webp">
-          <img src="static/images/tables/table2_results.png" width="2400" height="2430" loading="lazy"
+          <img src="static/images/tables/table2_results.png" width="2400" height="2418" loading="lazy"
                alt="Zero-shot accuracy of 23 models on the five tasks. Human evaluators score 73.2 overall and the best model 55.7.">
         </picture>
       </div></div>
@@ -258,9 +261,9 @@
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
         <p><strong>The gap.</strong> Humans score 73.2. The best model, Gemini-2.5-Pro, stops at 55.7, which
-           is 17.5 points short. The best open model, Ovis2.5-9B, gets 41.2. Chance is 23.9.</p>
-        <p><strong>By task.</strong> Navigation and Egocentric Motion sit closest to chance. Occlusion and
-           Relative Position hold up best. Models still see the scene. What they cannot do is carry a
+           is 17.5 points short. The best open model, Qwen2-VL-7B-Instruct, gets 42.0. Chance is 23.9.</p>
+        <p><strong>By task.</strong> Navigation and Egocentric Motion sit closest to chance. Distance Awareness and
+           Occlusion hold up best. Models still see the scene. What they cannot do is carry a
            direction out of one agent's frame and into another's.</p>
       </div>
     </div></div>
@@ -284,21 +287,22 @@
     </div></div>
     <figure class="figure narrow">
       <picture><source srcset="static/images/figures/fig3_no_transfer.webp" type="image/webp">
-      <img src="static/images/figures/fig3_no_transfer.png" width="1578" height="1397" loading="lazy"
+      <img src="static/images/figures/fig3_no_transfer.png" width="1600" height="1437" loading="lazy"
            alt="Static perceptual accuracy plotted against compositional accuracy. The points fill the whole square and the fitted line is almost flat, so one does not predict the other."></picture>
     </figure>
 
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
-        <p><strong>Some models ignore the other view.</strong> Remove one observation, or all of them, and
-           open-source accuracy hardly moves. On compositional tasks several stay above chance with no image
-           at all, so the answer is coming from the option list rather than the scene.</p>
+        <p><strong>Some models ignore the other view.</strong> Remove one observation, or all of them, and open-source
+           accuracy on the compositional tasks hardly moves. Several stay above chance there with no image at
+           all, so the answer is coming from the option list rather than the scene. Distance Awareness is the
+           exception: every model collapses once the views are gone.</p>
       </div>
     </div></div>
-    <figure class="figure"><div class="fig-scroll">
+    <figure class="figure"><div class="fig-scroll" tabindex="0" role="region" aria-label="Chart, scroll sideways to see all panels">
       <picture><source srcset="static/images/figures/fig4_removal.webp" type="image/webp">
       <img src="static/images/figures/fig4_removal.png" width="2400" height="373" loading="lazy"
-           alt="Five models compared with all views present, one view missing and all views missing. For the open-source models the three bars are nearly the same height."></picture>
+           alt="Five models compared with all views present, one view missing and all views missing. On the compositional tasks the three bars are nearly level for the open-source models, while Distance Awareness collapses when the views are removed."></picture>
     </div></figure>
 
     <div class="columns is-centered"><div class="column is-four-fifths">
@@ -308,9 +312,9 @@
            at once, and Navigation and Egocentric Motion suffer most.</p>
       </div>
     </div></div>
-    <figure class="figure"><div class="fig-scroll">
+    <figure class="figure"><div class="fig-scroll" tabindex="0" role="region" aria-label="Chart, scroll sideways to see all panels">
       <picture><source srcset="static/images/figures/fig5_agents.webp" type="image/webp">
-      <img src="static/images/figures/fig5_agents.png" width="2400" height="503" loading="lazy"
+      <img src="static/images/figures/fig5_agents.png" width="2400" height="522" loading="lazy"
            alt="Six models, two-agent against three-agent accuracy. The three-agent bar is lower for almost every model and task."></picture>
     </div></figure>
 
@@ -318,11 +322,11 @@
       <div class="lines">
         <p><strong>Orientation is unstable.</strong> Mirror the images and swap left for right in the text,
            and the question is geometrically identical. Between 22 and 32 percent of answers change anyway,
-           with bias ratios of 0.47 to 0.59. Directional questions break more than obstacle questions, which
+           with bias ratios of 0.50 to 0.59 for the models shown. Directional questions break more than obstacle questions, which
            points at the direction words rather than the pixels.</p>
       </div>
     </div></div>
-    <figure class="figure"><div class="fig-scroll">
+    <figure class="figure"><div class="fig-scroll" tabindex="0" role="region" aria-label="Chart, scroll sideways to see all panels">
       <picture><source srcset="static/images/figures/fig6_flip.webp" type="image/webp">
       <img src="static/images/figures/fig6_flip.png" width="2400" height="566" loading="lazy"
            alt="Left, how often each model's answer changes under mirroring, with bias ratios close to one half. Right, directional navigation questions shift further than obstacle questions."></picture>
@@ -351,7 +355,7 @@
       <li>
         <p class="step-title"><span class="n">1</span> Agent views</p>
         <picture><source srcset="static/images/figures/fig8_s1_views.webp" type="image/webp">
-        <img src="static/images/figures/fig8_s1_views.jpg" width="1400" height="253" loading="lazy"
+        <img src="static/images/figures/fig8_s1_views.jpg" width="1400" height="244" loading="lazy"
              alt="Three agent observations of a living room."></picture>
       </li>
       <li>
@@ -376,11 +380,11 @@
     <p class="caption">Geometry-guided view synthesis, in four stages.</p>
 
     <figure class="table-figure">
-      <div class="table-scroll"><div class="hl-frame narrow">
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll sideways to see all columns"><div class="hl-frame narrow">
         <picture>
           <source srcset="static/images/tables/table4_synthetic.webp" type="image/webp">
           <img src="static/images/tables/table4_synthetic.png" width="2058" height="1473" loading="lazy"
-               alt="Four models before and after adding synthetic views, with the change on each task. Qwen2.5-VL-7B gains most, the two spatial models lose ground.">
+               alt="Four models before and after adding synthetic views, with the change on each task. Qwen2.5-VL-7B gains 1.1 overall; the others are flat or lower.">
         </picture>
       </div></div>
       <figcaption>Shaded cells improve after adding synthetic views.</figcaption>
@@ -417,6 +421,8 @@
 }</code></pre>
   </div>
 </section>
+
+</main>
 
 <footer class="footer">
   <div class="container"><div class="columns is-centered"><div class="column is-8">

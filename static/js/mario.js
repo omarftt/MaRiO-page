@@ -30,6 +30,7 @@
       var img = el('img');
       img.src = 'static/images/tasks/' + stem + '.jpg';
       img.loading = 'lazy';
+      img.width = 640; img.height = 480;
       img.alt = "Agent " + (i + 1) + "'s view of the scene";
       pic.appendChild(src); pic.appendChild(img);
       fig.appendChild(pic);
@@ -44,8 +45,7 @@
     var tabsHost = el('div', 'exp-tabs');
     var legend = el('div', 'exp-legend');
     var panel = el('div', 'exp-panel');
-    tabsHost.setAttribute('role', 'tablist');
-    tabsHost.setAttribute('aria-label', 'Reasoning tasks');
+    tabsHost.setAttribute('aria-label', 'Choose a reasoning task');
     host.appendChild(tabsHost);
     host.appendChild(legend);
     host.appendChild(panel);
@@ -73,7 +73,7 @@
 
     function render() {
       Array.prototype.forEach.call(tabsHost.children, function (b) {
-        b.setAttribute('aria-selected', String(b.dataset.task === state.task));
+        b.setAttribute('aria-pressed', String(b.dataset.task === state.task));
       });
 
       var pool = items.filter(function (i) { return i.task === state.task; })
@@ -159,7 +159,7 @@
 
       preds = el('div', 'preds');
       preds.hidden = true;
-      preds.appendChild(el('h4', null, 'What the models answered'));
+      preds.appendChild(el('h3', null, 'What the models answered'));
       item.predictions.forEach(function (p) {
         var d = el('div', 'pred ' + (p.correct ? 'ok' : 'bad'));
         d.appendChild(el('span', 'who', p.model));
@@ -174,7 +174,6 @@
       var group = items.filter(function (i) { return i.task === t; })[0].group;
       var b = el('button', 'exp-tab');
       b.type = 'button';
-      b.setAttribute('role', 'tab');
       b.dataset.task = t;
       b.appendChild(el('span', 'dot ' + group));
       b.appendChild(el('span', null, t));
