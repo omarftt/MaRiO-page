@@ -1,519 +1,519 @@
 {
- "items": [
-  {
-   "id": 2302,
-   "task": "Distance Awareness",
-   "group": "static",
-   "source": "RealEstate10K",
-   "agents": 2,
-   "images": [
+  "items": [
     {
-     "stem": "q2302_a1",
-     "w": 800,
-     "h": 450
+      "id": 2302,
+      "task": "Distance Awareness",
+      "group": "static",
+      "source": "RealEstate10K",
+      "agents": 2,
+      "images": [
+        {
+          "stem": "q2302_a1",
+          "w": 800,
+          "h": 450
+        },
+        {
+          "stem": "q2302_a2",
+          "w": 800,
+          "h": 450
+        }
+      ],
+      "question": "Which agent is closer to the window?",
+      "choices": [
+        "Agent 1",
+        "Agent 2",
+        "neither",
+        "both"
+      ],
+      "answer": "Agent 2",
+      "predictions": [
+        {
+          "model": "Gemini-2.5-Pro",
+          "answer": "Agent 2",
+          "correct": true
+        },
+        {
+          "model": "Qwen2.5-VL-7B",
+          "answer": "Agent 2",
+          "correct": true
+        },
+        {
+          "model": "InternVL3-8B",
+          "answer": "Agent 1",
+          "correct": false
+        },
+        {
+          "model": "Ovis2.5-9B",
+          "answer": "Agent 1",
+          "correct": false
+        }
+      ]
     },
     {
-     "stem": "q2302_a2",
-     "w": 800,
-     "h": 450
+      "id": 407,
+      "task": "Distance Awareness",
+      "group": "static",
+      "source": "Simulator",
+      "agents": 3,
+      "images": [
+        {
+          "stem": "q407_a1",
+          "w": 800,
+          "h": 600
+        },
+        {
+          "stem": "q407_a2",
+          "w": 800,
+          "h": 600
+        },
+        {
+          "stem": "q407_a3",
+          "w": 800,
+          "h": 600
+        }
+      ],
+      "question": "Which agent is farthest from the window?",
+      "choices": [
+        "Agent 3",
+        "Agent 1",
+        "Both agents equally",
+        "Agent 2"
+      ],
+      "answer": "Agent 3",
+      "predictions": [
+        {
+          "model": "Gemini-2.5-Pro",
+          "answer": "Agent 3",
+          "correct": true
+        },
+        {
+          "model": "Qwen2.5-VL-7B",
+          "answer": "Agent 2",
+          "correct": false
+        },
+        {
+          "model": "InternVL3-8B",
+          "answer": "Agent 2",
+          "correct": false
+        },
+        {
+          "model": "Ovis2.5-9B",
+          "answer": "Agent 3",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 1709,
+      "task": "Occlusion",
+      "group": "static",
+      "source": "RealEstate10K",
+      "agents": 2,
+      "images": [
+        {
+          "stem": "q1709_a1",
+          "w": 800,
+          "h": 450
+        },
+        {
+          "stem": "q1709_a2",
+          "w": 800,
+          "h": 450
+        }
+      ],
+      "question": "What object seen by agent 2 is occluded from agent 1's view?",
+      "choices": [
+        "A dishwasher",
+        "A doorway",
+        "A washing machine",
+        "A microwave"
+      ],
+      "answer": "A doorway",
+      "predictions": [
+        {
+          "model": "Gemini-2.5-Pro",
+          "answer": "A doorway",
+          "correct": true
+        },
+        {
+          "model": "Qwen2.5-VL-7B",
+          "answer": "A doorway",
+          "correct": true
+        },
+        {
+          "model": "InternVL3-8B",
+          "answer": "A dishwasher",
+          "correct": false
+        },
+        {
+          "model": "Ovis2.5-9B",
+          "answer": "A doorway",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 405,
+      "task": "Occlusion",
+      "group": "static",
+      "source": "Simulator",
+      "agents": 3,
+      "images": [
+        {
+          "stem": "q405_a1",
+          "w": 800,
+          "h": 600
+        },
+        {
+          "stem": "q405_a2",
+          "w": 800,
+          "h": 600
+        },
+        {
+          "stem": "q405_a3",
+          "w": 800,
+          "h": 600
+        }
+      ],
+      "question": "How many cumulative unique lamps are observable across all 3 agents' views?",
+      "choices": [
+        "2 unique lamps",
+        "3 unique lamps",
+        "1 unique lamp",
+        "4 unique lamps"
+      ],
+      "answer": "2 unique lamps",
+      "predictions": [
+        {
+          "model": "Gemini-2.5-Pro",
+          "answer": "4 unique lamps",
+          "correct": false
+        },
+        {
+          "model": "Qwen2.5-VL-7B",
+          "answer": "2 unique lamps",
+          "correct": true
+        },
+        {
+          "model": "InternVL3-8B",
+          "answer": "2 unique lamps",
+          "correct": true
+        },
+        {
+          "model": "Ovis2.5-9B",
+          "answer": "3 unique lamps",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 1984,
+      "task": "Relative Position",
+      "group": "static",
+      "source": "RealEstate10K",
+      "agents": 2,
+      "images": [
+        {
+          "stem": "q1984_a1",
+          "w": 800,
+          "h": 450
+        },
+        {
+          "stem": "q1984_a2",
+          "w": 800,
+          "h": 450
+        }
+      ],
+      "question": "What object is most likely directly on the right of agent 2?",
+      "choices": [
+        "A dining room table",
+        "A microwave",
+        "A min fridge",
+        "A dishwasher"
+      ],
+      "answer": "A dishwasher",
+      "predictions": [
+        {
+          "model": "Gemini-2.5-Pro",
+          "answer": "A dishwasher",
+          "correct": true
+        },
+        {
+          "model": "Qwen2.5-VL-7B",
+          "answer": "A microwave",
+          "correct": false
+        },
+        {
+          "model": "InternVL3-8B",
+          "answer": "A dishwasher",
+          "correct": true
+        },
+        {
+          "model": "Ovis2.5-9B",
+          "answer": "A microwave",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 422,
+      "task": "Relative Position",
+      "group": "static",
+      "source": "Simulator",
+      "agents": 3,
+      "images": [
+        {
+          "stem": "q422_a1",
+          "w": 800,
+          "h": 600
+        },
+        {
+          "stem": "q422_a2",
+          "w": 800,
+          "h": 600
+        },
+        {
+          "stem": "q422_a3",
+          "w": 800,
+          "h": 600
+        }
+      ],
+      "question": "Which agent has a dining table to the left?",
+      "choices": [
+        "Both agents",
+        "Agent 1",
+        "Agent 2",
+        "Agent 3"
+      ],
+      "answer": "Agent 1",
+      "predictions": [
+        {
+          "model": "Gemini-2.5-Pro",
+          "answer": "Agent 1",
+          "correct": true
+        },
+        {
+          "model": "Qwen2.5-VL-7B",
+          "answer": "Agent 3",
+          "correct": false
+        },
+        {
+          "model": "InternVL3-8B",
+          "answer": "Agent 2",
+          "correct": false
+        },
+        {
+          "model": "Ovis2.5-9B",
+          "answer": "Agent 2",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 1294,
+      "task": "Egocentric Motion",
+      "group": "comp",
+      "source": "RealEstate10K",
+      "agents": 2,
+      "images": [
+        {
+          "stem": "q1294_a1",
+          "w": 800,
+          "h": 450
+        },
+        {
+          "stem": "q1294_a2",
+          "w": 800,
+          "h": 450
+        }
+      ],
+      "question": "If agent 2 turns left 90 degrees and moves straight forward which of the following is true?",
+      "choices": [
+        "It will move closer to Agent 1",
+        "It will move further away from Agent 1",
+        "It will move closer to the desk chair",
+        "A piano will come into view"
+      ],
+      "answer": "It will move further away from Agent 1",
+      "predictions": [
+        {
+          "model": "Gemini-2.5-Pro",
+          "answer": "It will move closer to Agent 1",
+          "correct": false
+        },
+        {
+          "model": "Qwen2.5-VL-7B",
+          "answer": "It will move further away from Agent 1",
+          "correct": true
+        },
+        {
+          "model": "InternVL3-8B",
+          "answer": "A piano will come into view",
+          "correct": false
+        },
+        {
+          "model": "Ovis2.5-9B",
+          "answer": "It will move closer to the desk chair",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 487,
+      "task": "Egocentric Motion",
+      "group": "comp",
+      "source": "Simulator",
+      "agents": 3,
+      "images": [
+        {
+          "stem": "q487_a1",
+          "w": 800,
+          "h": 600
+        },
+        {
+          "stem": "q487_a2",
+          "w": 800,
+          "h": 600
+        },
+        {
+          "stem": "q487_a3",
+          "w": 800,
+          "h": 600
+        }
+      ],
+      "question": "Which direction should Agent 1 turn to face the fridge?",
+      "choices": [
+        "Turn right",
+        "Turn left",
+        "Turn around",
+        "Go straight forward"
+      ],
+      "answer": "Turn right",
+      "predictions": [
+        {
+          "model": "Gemini-2.5-Pro",
+          "answer": "Turn right",
+          "correct": true
+        },
+        {
+          "model": "Qwen2.5-VL-7B",
+          "answer": "Turn right",
+          "correct": true
+        },
+        {
+          "model": "InternVL3-8B",
+          "answer": "Turn right",
+          "correct": true
+        },
+        {
+          "model": "Ovis2.5-9B",
+          "answer": "Turn right",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 1457,
+      "task": "Navigation",
+      "group": "comp",
+      "source": "RealEstate10K",
+      "agents": 2,
+      "images": [
+        {
+          "stem": "q1457_a1",
+          "w": 800,
+          "h": 450
+        },
+        {
+          "stem": "q1457_a2",
+          "w": 800,
+          "h": 450
+        }
+      ],
+      "question": "If agent 1 is tasked with navigating to agent 2's position and orientation it should do what?",
+      "choices": [
+        "Turn left then move forward",
+        "Move forward then turn left",
+        "Turn right then move forward",
+        "Move forward then turn right"
+      ],
+      "answer": "Move forward then turn left",
+      "predictions": [
+        {
+          "model": "Gemini-2.5-Pro",
+          "answer": "Turn left then move forward",
+          "correct": false
+        },
+        {
+          "model": "Qwen2.5-VL-7B",
+          "answer": "Turn right then move forward",
+          "correct": false
+        },
+        {
+          "model": "InternVL3-8B",
+          "answer": "Move forward then turn right",
+          "correct": false
+        },
+        {
+          "model": "Ovis2.5-9B",
+          "answer": "Turn left then move forward",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 419,
+      "task": "Navigation",
+      "group": "comp",
+      "source": "Simulator",
+      "agents": 3,
+      "images": [
+        {
+          "stem": "q419_a1",
+          "w": 800,
+          "h": 600
+        },
+        {
+          "stem": "q419_a2",
+          "w": 800,
+          "h": 600
+        },
+        {
+          "stem": "q419_a3",
+          "w": 800,
+          "h": 600
+        }
+      ],
+      "question": "If Agent 1 decides to move directly toward Agent 2, is there any obstacle between them?",
+      "choices": [
+        "Yes (the obstacle is a coffee table)",
+        "Yes (the obstacle is a desktop)",
+        "Yes (the obstacle is a floor lamp)",
+        "No (there are no obstacles)"
+      ],
+      "answer": "Yes (the obstacle is a desktop)",
+      "predictions": [
+        {
+          "model": "Gemini-2.5-Pro",
+          "answer": "Yes (the obstacle is a coffee table)",
+          "correct": false
+        },
+        {
+          "model": "Qwen2.5-VL-7B",
+          "answer": "No (there are no obstacles)",
+          "correct": false
+        },
+        {
+          "model": "InternVL3-8B",
+          "answer": "No (there are no obstacles)",
+          "correct": false
+        },
+        {
+          "model": "Ovis2.5-9B",
+          "answer": "Yes (the obstacle is a coffee table)",
+          "correct": false
+        }
+      ]
     }
-   ],
-   "question": "Which agent is closer to the window?",
-   "choices": [
-    "Agent 1",
-    "Agent 2",
-    "neither",
-    "both"
-   ],
-   "answer": "Agent 2",
-   "predictions": [
-    {
-     "model": "Gemini-2.5-Pro",
-     "answer": "Agent 2",
-     "correct": true
-    },
-    {
-     "model": "Qwen2.5-VL-7B",
-     "answer": "Agent 2",
-     "correct": true
-    },
-    {
-     "model": "InternVL3-8B",
-     "answer": "Agent 1",
-     "correct": false
-    },
-    {
-     "model": "Ovis2.5-9B",
-     "answer": "Agent 1",
-     "correct": false
-    }
-   ]
-  },
-  {
-   "id": 407,
-   "task": "Distance Awareness",
-   "group": "static",
-   "source": "Simulator",
-   "agents": 3,
-   "images": [
-    {
-     "stem": "q407_a1",
-     "w": 800,
-     "h": 600
-    },
-    {
-     "stem": "q407_a2",
-     "w": 800,
-     "h": 600
-    },
-    {
-     "stem": "q407_a3",
-     "w": 800,
-     "h": 600
-    }
-   ],
-   "question": "Which agent is farthest from the window?",
-   "choices": [
-    "Agent 3",
-    "Agent 1",
-    "Both agents equally",
-    "Agent 2"
-   ],
-   "answer": "Agent 3",
-   "predictions": [
-    {
-     "model": "Gemini-2.5-Pro",
-     "answer": "Agent 3",
-     "correct": true
-    },
-    {
-     "model": "Qwen2.5-VL-7B",
-     "answer": "Agent 2",
-     "correct": false
-    },
-    {
-     "model": "InternVL3-8B",
-     "answer": "Agent 2",
-     "correct": false
-    },
-    {
-     "model": "Ovis2.5-9B",
-     "answer": "Agent 3",
-     "correct": true
-    }
-   ]
-  },
-  {
-   "id": 1709,
-   "task": "Occlusion",
-   "group": "static",
-   "source": "RealEstate10K",
-   "agents": 2,
-   "images": [
-    {
-     "stem": "q1709_a1",
-     "w": 800,
-     "h": 450
-    },
-    {
-     "stem": "q1709_a2",
-     "w": 800,
-     "h": 450
-    }
-   ],
-   "question": "What object seen by agent 2 is occluded from agent 1's view?",
-   "choices": [
-    "A dishwasher",
-    "A doorway",
-    "A washing machine",
-    "A microwave"
-   ],
-   "answer": "A doorway",
-   "predictions": [
-    {
-     "model": "Gemini-2.5-Pro",
-     "answer": "A doorway",
-     "correct": true
-    },
-    {
-     "model": "Qwen2.5-VL-7B",
-     "answer": "A doorway",
-     "correct": true
-    },
-    {
-     "model": "InternVL3-8B",
-     "answer": "A dishwasher",
-     "correct": false
-    },
-    {
-     "model": "Ovis2.5-9B",
-     "answer": "A doorway",
-     "correct": true
-    }
-   ]
-  },
-  {
-   "id": 405,
-   "task": "Occlusion",
-   "group": "static",
-   "source": "Simulator",
-   "agents": 3,
-   "images": [
-    {
-     "stem": "q405_a1",
-     "w": 800,
-     "h": 600
-    },
-    {
-     "stem": "q405_a2",
-     "w": 800,
-     "h": 600
-    },
-    {
-     "stem": "q405_a3",
-     "w": 800,
-     "h": 600
-    }
-   ],
-   "question": "How many cumulative unique lamps are observable across all 3 agents' views?",
-   "choices": [
-    "2 unique lamps",
-    "3 unique lamps",
-    "1 unique lamp",
-    "4 unique lamps"
-   ],
-   "answer": "2 unique lamps",
-   "predictions": [
-    {
-     "model": "Gemini-2.5-Pro",
-     "answer": "4 unique lamps",
-     "correct": false
-    },
-    {
-     "model": "Qwen2.5-VL-7B",
-     "answer": "2 unique lamps",
-     "correct": true
-    },
-    {
-     "model": "InternVL3-8B",
-     "answer": "2 unique lamps",
-     "correct": true
-    },
-    {
-     "model": "Ovis2.5-9B",
-     "answer": "3 unique lamps",
-     "correct": false
-    }
-   ]
-  },
-  {
-   "id": 1984,
-   "task": "Relative Position",
-   "group": "static",
-   "source": "RealEstate10K",
-   "agents": 2,
-   "images": [
-    {
-     "stem": "q1984_a1",
-     "w": 800,
-     "h": 450
-    },
-    {
-     "stem": "q1984_a2",
-     "w": 800,
-     "h": 450
-    }
-   ],
-   "question": "What object is most likely directly on the right of agent 2?",
-   "choices": [
-    "A dining room table",
-    "A microwave",
-    "A min fridge",
-    "A dishwasher"
-   ],
-   "answer": "A dishwasher",
-   "predictions": [
-    {
-     "model": "Gemini-2.5-Pro",
-     "answer": "A dishwasher",
-     "correct": true
-    },
-    {
-     "model": "Qwen2.5-VL-7B",
-     "answer": "A microwave",
-     "correct": false
-    },
-    {
-     "model": "InternVL3-8B",
-     "answer": "A dishwasher",
-     "correct": true
-    },
-    {
-     "model": "Ovis2.5-9B",
-     "answer": "A microwave",
-     "correct": false
-    }
-   ]
-  },
-  {
-   "id": 413,
-   "task": "Relative Position",
-   "group": "static",
-   "source": "Simulator",
-   "agents": 3,
-   "images": [
-    {
-     "stem": "q413_a1",
-     "w": 800,
-     "h": 600
-    },
-    {
-     "stem": "q413_a2",
-     "w": 800,
-     "h": 600
-    },
-    {
-     "stem": "q413_a3",
-     "w": 800,
-     "h": 600
-    }
-   ],
-   "question": "Which agents have a window behind them?",
-   "choices": [
-    "Agent 1 and Agent 2",
-    "Agent 2 and Agent 3",
-    "Agent 3 only",
-    "All three agents (Agent 1, Agent 2, and Agent 3)"
-   ],
-   "answer": "Agent 2 and Agent 3",
-   "predictions": [
-    {
-     "model": "Gemini-2.5-Pro",
-     "answer": "Agent 2 and Agent 3",
-     "correct": true
-    },
-    {
-     "model": "Qwen2.5-VL-7B",
-     "answer": "Agent 1 and Agent 2",
-     "correct": false
-    },
-    {
-     "model": "InternVL3-8B",
-     "answer": "Agent 1 and Agent 2",
-     "correct": false
-    },
-    {
-     "model": "Ovis2.5-9B",
-     "answer": "Agent 1 and Agent 2",
-     "correct": false
-    }
-   ]
-  },
-  {
-   "id": 1230,
-   "task": "Egocentric Motion",
-   "group": "comp",
-   "source": "RealEstate10K",
-   "agents": 2,
-   "images": [
-    {
-     "stem": "q1230_a1",
-     "w": 800,
-     "h": 450
-    },
-    {
-     "stem": "q1230_a2",
-     "w": 800,
-     "h": 450
-    }
-   ],
-   "question": "If agent 2 turns around it will be facing primarily what cardinal direction in agent 1's local reference frame?",
-   "choices": [
-    "North",
-    "East",
-    "West",
-    "South"
-   ],
-   "answer": "West",
-   "predictions": [
-    {
-     "model": "Gemini-2.5-Pro",
-     "answer": "South",
-     "correct": false
-    },
-    {
-     "model": "Qwen2.5-VL-7B",
-     "answer": "South",
-     "correct": false
-    },
-    {
-     "model": "InternVL3-8B",
-     "answer": "South",
-     "correct": false
-    },
-    {
-     "model": "Ovis2.5-9B",
-     "answer": "North",
-     "correct": false
-    }
-   ]
-  },
-  {
-   "id": 487,
-   "task": "Egocentric Motion",
-   "group": "comp",
-   "source": "Simulator",
-   "agents": 3,
-   "images": [
-    {
-     "stem": "q487_a1",
-     "w": 800,
-     "h": 600
-    },
-    {
-     "stem": "q487_a2",
-     "w": 800,
-     "h": 600
-    },
-    {
-     "stem": "q487_a3",
-     "w": 800,
-     "h": 600
-    }
-   ],
-   "question": "Which direction should Agent 1 turn to face the fridge?",
-   "choices": [
-    "Turn right",
-    "Turn left",
-    "Turn around",
-    "Go straight forward"
-   ],
-   "answer": "Turn right",
-   "predictions": [
-    {
-     "model": "Gemini-2.5-Pro",
-     "answer": "Turn right",
-     "correct": true
-    },
-    {
-     "model": "Qwen2.5-VL-7B",
-     "answer": "Turn right",
-     "correct": true
-    },
-    {
-     "model": "InternVL3-8B",
-     "answer": "Turn right",
-     "correct": true
-    },
-    {
-     "model": "Ovis2.5-9B",
-     "answer": "Turn right",
-     "correct": true
-    }
-   ]
-  },
-  {
-   "id": 1457,
-   "task": "Navigation",
-   "group": "comp",
-   "source": "RealEstate10K",
-   "agents": 2,
-   "images": [
-    {
-     "stem": "q1457_a1",
-     "w": 800,
-     "h": 450
-    },
-    {
-     "stem": "q1457_a2",
-     "w": 800,
-     "h": 450
-    }
-   ],
-   "question": "If agent 1 is tasked with navigating to agent 2's position and orientation it should do what?",
-   "choices": [
-    "Turn left then move forward",
-    "Move forward then turn left",
-    "Turn right then move forward",
-    "Move forward then turn right"
-   ],
-   "answer": "Move forward then turn left",
-   "predictions": [
-    {
-     "model": "Gemini-2.5-Pro",
-     "answer": "Turn left then move forward",
-     "correct": false
-    },
-    {
-     "model": "Qwen2.5-VL-7B",
-     "answer": "Turn right then move forward",
-     "correct": false
-    },
-    {
-     "model": "InternVL3-8B",
-     "answer": "Move forward then turn right",
-     "correct": false
-    },
-    {
-     "model": "Ovis2.5-9B",
-     "answer": "Turn left then move forward",
-     "correct": false
-    }
-   ]
-  },
-  {
-   "id": 419,
-   "task": "Navigation",
-   "group": "comp",
-   "source": "Simulator",
-   "agents": 3,
-   "images": [
-    {
-     "stem": "q419_a1",
-     "w": 800,
-     "h": 600
-    },
-    {
-     "stem": "q419_a2",
-     "w": 800,
-     "h": 600
-    },
-    {
-     "stem": "q419_a3",
-     "w": 800,
-     "h": 600
-    }
-   ],
-   "question": "If Agent 1 decides to move directly toward Agent 2, is there any obstacle between them?",
-   "choices": [
-    "Yes (the obstacle is a coffee table)",
-    "Yes (the obstacle is a desktop)",
-    "Yes (the obstacle is a floor lamp)",
-    "No (there are no obstacles)"
-   ],
-   "answer": "Yes (the obstacle is a desktop)",
-   "predictions": [
-    {
-     "model": "Gemini-2.5-Pro",
-     "answer": "Yes (the obstacle is a coffee table)",
-     "correct": false
-    },
-    {
-     "model": "Qwen2.5-VL-7B",
-     "answer": "No (there are no obstacles)",
-     "correct": false
-    },
-    {
-     "model": "InternVL3-8B",
-     "answer": "No (there are no obstacles)",
-     "correct": false
-    },
-    {
-     "model": "Ovis2.5-9B",
-     "answer": "Yes (the obstacle is a coffee table)",
-     "correct": false
-    }
-   ]
-  }
- ]
+  ]
 }

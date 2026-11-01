@@ -101,7 +101,6 @@ a { color: var(--a1); }
 /* ---------------------------------------------------- figures */
 .figure { margin: 1.6rem auto 2.2rem; text-align: center; }
 .figure img { max-width: 100%; height: auto; border-radius: 6px; }
-.figure.narrow img { max-width: 520px; }
 .figure figcaption, .table-figure figcaption, .caption {
   font-size: 14.7px; line-height: 1.5; color: var(--muted);
   text-align: center; max-width: 74ch; margin: .9rem auto 0;
@@ -115,7 +114,7 @@ a { color: var(--a1); }
   border: 1px solid var(--line); border-radius: 6px;
   padding: 0; background: #fff; line-height: 0;
 }
-.hl-frame.narrow { max-width: 760px; }
+.hl-frame.narrow { max-width: var(--w, 760px); }
 .hl-frame img { display: block; width: 100%; height: auto; }
 .row-outline {
   position: absolute; pointer-events: none;
@@ -278,8 +277,7 @@ a { color: var(--a1); }
   .pipeline { grid-template-columns: 1fr; gap: 1.2rem; }
   .opts { grid-template-columns: 1fr; }
   .views.n3 { grid-template-columns: repeat(3, 1fr); }
-  .figure.narrow img { max-width: 100%; }
-  .hl-frame { width: 640px; max-width: none; }
+  .hl-frame { width: var(--w, 900px); max-width: none; }
   .hl-frame img { min-width: 0; }
   .pred { flex-wrap: wrap; }
   .pred .who { flex: 0 0 100%; }
@@ -395,31 +393,36 @@ a { color: var(--a1); }
   outline: 3px solid var(--a1); outline-offset: 2px;
 }
 
-/* ------------------------- analysis: four groups, seven findings */
-.agroup { margin: 0; }
-.agroup + .agroup { border-top: 2px solid var(--line); margin-top: 3.4rem; padding-top: 2.6rem; }
+/* ------------- analysis: the figure carries the finding, the caption states it */
 .agroup-title {
   font-family: var(--title-font); font-size: 20px; font-weight: 700;
-  color: var(--ink); text-align: center; margin-bottom: 1.8rem;
+  color: var(--ink); text-align: center; margin: 0 0 1.7rem;
 }
-.finding { margin: 0; }
-.finding + .finding { margin-top: 2.4rem; }
-.finding h4 {
-  font-family: var(--title-font); font-size: 15px; font-weight: 600;
-  color: var(--muted); text-align: center; letter-spacing: .01em; margin-bottom: .8rem;
+.agrid + .agroup-title {
+  margin-top: 3.2rem; padding-top: 2.6rem; border-top: 2px solid var(--line);
 }
-.finding .figure { margin-top: 1.2rem; margin-bottom: 0; }
-.finding .figure + .figure { margin-top: 1rem; }
+.agrid { display: grid; gap: 2.4rem 2rem; margin: 0; }
+.agrid + .agrid { margin-top: 2.4rem; }
+.agrid.one { grid-template-columns: minmax(0, 1fr); }
+.agrid.two { grid-template-columns: repeat(2, auto); justify-content: center; align-items: start; }
+/* a shared image height keeps the two captions on one line, as the reference page does */
+.agrid.two .aitem { max-width: none; }
+.agrid.two .aitem img { height: 310px; width: auto; max-width: 100%; }
+.aitem { margin: 0; min-width: 0; max-width: var(--w, 100%); }
+.aitem img { display: block; margin: 0 auto; width: 100%; height: auto; border-radius: 6px; }
+.acap {
+  margin: .75rem auto 0; max-width: 64ch;
+  font-size: 14.4px; line-height: 1.45; color: var(--muted); text-align: center;
+}
+.acap b { color: var(--ink); font-weight: 700; }
+.agrid.two .acap { max-width: 100%; }
 
-.takeaway {
-  max-width: 780px; margin: 2.2rem auto 0; padding: .9rem 1.1rem;
-  background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--a2);
-  border-radius: 0 7px 7px 0; font-size: 15.5px; line-height: 1.55;
+@media screen and (max-width: 768px) {
+  /* stack the pair so each figure gets the full column width and stays legible */
+  .agrid.two { grid-template-columns: minmax(0, 1fr); }
+  .agrid.two .aitem img { height: auto; width: 100%; }
 }
-.takeaway span {
-  display: block; font-family: var(--title-font); font-size: 11.5px; font-weight: 700;
-  letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .3rem;
-}
+
 /* source of each example, shown beside the task chip */
 .chip.src {
   font-family: var(--title-font); font-size: 11.5px; font-weight: 600;
