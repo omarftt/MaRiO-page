@@ -394,3 +394,20 @@ a { color: var(--a1); }
 .seg button:focus-visible, .button:focus-visible, a:focus-visible {
   outline: 3px solid var(--a1); outline-offset: 2px;
 }
+
+/* ------------------------------- analysis subsections, clearly separated */
+.finding { margin: 0; }
+.finding + .finding {
+  border-top: 1px solid var(--line);
+  margin-top: 3.2rem; padding-top: 2.4rem;
+}
+.finding h3 {
+  font-family: var(--title-font); font-size: 18px; font-weight: 600;
+  color: var(--ink); text-align: center; margin-bottom: 1.1rem;
+}
+.finding .figure { margin-bottom: 0; }
+.finding:last-child .lines { margin-bottom: 0; }
+
+/* source of each example, shown beside the task chip */
+.chip.src { background: #fff; color: var(--muted); border-color: var(--line); }
+.chip.src.real { background: var(--a1-soft); color: var(--a1); border-color: #CFDDEC; }

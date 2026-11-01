@@ -4,7 +4,7 @@
 
   var LETTERS = ['A', 'B', 'C', 'D'];
   var TASK_ORDER = [
-    'Distance Awareness', 'Occlusion / Visibility', 'Relative Position',
+    'Distance Awareness', 'Occlusion', 'Relative Position',
     'Egocentric Motion', 'Navigation'
   ];
 
@@ -21,16 +21,16 @@
 
   function viewStrip(item) {
     var wrap = el('div', 'views n' + item.agents);
-    item.images.forEach(function (stem, i) {
+    item.images.forEach(function (im, i) {
       var fig = el('figure', 'view a' + (i + 1));
       var pic = el('picture');
       var src = el('source');
-      src.srcset = 'static/images/tasks/' + stem + '.webp';
+      src.srcset = 'static/images/tasks/' + im.stem + '.webp';
       src.type = 'image/webp';
       var img = el('img');
-      img.src = 'static/images/tasks/' + stem + '.jpg';
+      img.src = 'static/images/tasks/' + im.stem + '.jpg';
       img.loading = 'lazy';
-      img.width = 640; img.height = 480;
+      img.width = im.w; img.height = im.h;
       img.alt = "Agent " + (i + 1) + "'s view of the scene";
       pic.appendChild(src); pic.appendChild(img);
       fig.appendChild(pic);
@@ -104,6 +104,8 @@
           seg.appendChild(b);
         });
         bar.appendChild(seg);
+        var isReal = item.source !== 'Simulator';
+        bar.appendChild(el('span', 'chip src' + (isReal ? ' real' : ''), item.source));
         panel.appendChild(bar);
       }
 

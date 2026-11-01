@@ -35,7 +35,10 @@ matching the SignRR page. Button icons are inline SVG, so there is no icon bundl
 
 `mario.js` builds one widget, the example explorer in the Benchmark section. It
 reads `static/data/examples.json`, which holds ten real benchmark items with the
-real predictions of four models on them.
+real predictions of four models on them. Five come from the real-world sources
+(four RealEstate10K, one NAVI) and five from the simulators, so both halves of
+the benchmark are represented; each item carries a `source` field that the
+widget shows as a chip.
 
 ## Before publishing
 

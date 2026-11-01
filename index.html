@@ -167,8 +167,7 @@
 <section class="section" id="motivation">
   <div class="container is-max-desktop">
     <div class="section-head">
-      <p class="eyebrow">Motivation</p>
-      <h2>Existing benchmarks hand the model a single coordinate frame</h2>
+      <h2>Motivation</h2>
     </div>
 
     <figure class="table-figure">
@@ -201,8 +200,7 @@
 <section class="section is-light" id="benchmark">
   <div class="container is-max-desktop">
     <div class="section-head">
-      <p class="eyebrow">Benchmark</p>
-      <h2>The model gets raw RGB from two or three agents and nothing else</h2>
+      <h2>The MaRiO benchmark</h2>
     </div>
 
     <div class="stat-strip">
@@ -239,12 +237,11 @@
 <section class="section" id="results">
   <div class="container is-max-desktop">
     <div class="section-head">
-      <p class="eyebrow">Results</p>
-      <h2>Every model lands far below human accuracy</h2>
+      <h2>Results</h2>
     </div>
 
     <figure class="table-figure">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll sideways to see all columns"><div class="hl-frame">
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll sideways to see all columns"><div class="hl-frame narrow">
         <picture>
           <source srcset="static/images/tables/table2_results.webp" type="image/webp">
           <img src="static/images/tables/table2_results.png" width="2400" height="2418" loading="lazy"
@@ -274,15 +271,14 @@
 <section class="section is-light" id="analysis">
   <div class="container is-max-desktop">
     <div class="section-head">
-      <p class="eyebrow">Analysis</p>
-      <h2>The failure is in matching views, not in seeing them</h2>
+      <h2>Analysis</h2>
     </div>
 
+    <article class="finding">
+      <h3>Static perception and compositional reasoning</h3>
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
-        <p><strong>Perception does not transfer.</strong> Pooled over every model, compositional accuracy
-           barely tracks static perceptual accuracy. The fit gives a slope of 0.15 and an
-           <em>R</em><sup>2</sup> of 0.028.</p>
+        <p>Pooled over every model, compositional accuracy barely tracks static perceptual accuracy. The fit gives a slope of 0.15 and an <em>R</em><sup>2</sup> of 0.028, so strength on one group of tasks says little about the other.</p>
       </div>
     </div></div>
     <figure class="figure narrow">
@@ -290,13 +286,13 @@
       <img src="static/images/figures/fig3_no_transfer.png" width="1600" height="1437" loading="lazy"
            alt="Static perceptual accuracy plotted against compositional accuracy. The points fill the whole square and the fitted line is almost flat, so one does not predict the other."></picture>
     </figure>
+    </article>
 
+    <article class="finding">
+      <h3>Effect of removing observations</h3>
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
-        <p><strong>Some models ignore the other view.</strong> Remove one observation, or all of them, and open-source
-           accuracy on the compositional tasks hardly moves. Several stay above chance there with no image at
-           all, so the answer is coming from the option list rather than the scene. Distance Awareness is the
-           exception: every model collapses once the views are gone.</p>
+        <p>Withholding one observation, or all of them, leaves open-source accuracy on the compositional tasks almost unchanged. Several models stay above chance there with no image at all, so the answer is coming from the option list rather than the scene. Distance Awareness is the exception, and collapses once the views are gone.</p>
       </div>
     </div></div>
     <figure class="figure"><div class="fig-scroll" tabindex="0" role="region" aria-label="Chart, scroll sideways to see all panels">
@@ -304,12 +300,13 @@
       <img src="static/images/figures/fig4_removal.png" width="2400" height="373" loading="lazy"
            alt="Five models compared with all views present, one view missing and all views missing. On the compositional tasks the three bars are nearly level for the open-source models, while Distance Awareness collapses when the views are removed."></picture>
     </div></figure>
+    </article>
 
+    <article class="finding">
+      <h3>Effect of increasing the number of agents</h3>
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
-        <p><strong>A third agent hurts.</strong> Going from two agents to three lowers accuracy across almost
-           every model and category. Each extra viewpoint enlarges the set of correspondences that must hold
-           at once, and Navigation and Egocentric Motion suffer most.</p>
+        <p>Going from two agents to three lowers accuracy across almost every model and category. Each extra viewpoint enlarges the set of correspondences that must hold at once, and Navigation and Egocentric Motion are affected most.</p>
       </div>
     </div></div>
     <figure class="figure"><div class="fig-scroll" tabindex="0" role="region" aria-label="Chart, scroll sideways to see all panels">
@@ -317,29 +314,31 @@
       <img src="static/images/figures/fig5_agents.png" width="2400" height="522" loading="lazy"
            alt="Six models, two-agent against three-agent accuracy. The three-agent bar is lower for almost every model and task."></picture>
     </div></figure>
+    </article>
 
+    <article class="finding">
+      <h3>Orientation consistency under reflection</h3>
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
-        <p><strong>Orientation is unstable.</strong> Mirror the images and swap left for right in the text,
-           and the question is geometrically identical. Between 22 and 32 percent of answers change anyway,
-           with bias ratios of 0.50 to 0.59 for the models shown. Directional questions break more than obstacle questions, which
-           points at the direction words rather than the pixels.</p>
+        <p>Mirroring the images and swapping left for right in the text leaves a geometrically identical question. Between 22 and 32 percent of answers change regardless, with bias ratios of 0.50 to 0.59 for the models shown. Directional questions change more often than obstacle questions, which points at the direction words rather than the pixels.</p>
       </div>
     </div></div>
     <figure class="figure"><div class="fig-scroll" tabindex="0" role="region" aria-label="Chart, scroll sideways to see all panels">
       <picture><source srcset="static/images/figures/fig6_flip.webp" type="image/webp">
       <img src="static/images/figures/fig6_flip.png" width="2400" height="566" loading="lazy"
-           alt="Left, how often each model's answer changes under mirroring, with bias ratios close to one half. Right, directional navigation questions shift further than obstacle questions."></picture>
+           alt="Left, how often each model answer changes under mirroring, with bias ratios close to one half. Right, directional navigation questions shift further than obstacle questions."></picture>
     </div></figure>
+    </article>
 
+    <article class="finding">
+      <h3>Human and model errors</h3>
     <div class="columns is-centered"><div class="column is-four-fifths">
-      <div class="lines takeaway">
-        <p><strong>Humans fail elsewhere.</strong> Across the 81 questions in the human study, model errors
-           and human errors land on different items. Gemini-2.5-Pro missed 19 of the 60 that every evaluator
-           got right, and answered 11 of the 21 that tripped at least one person. The questions are
-           answerable, so the shortfall is not an artifact of ambiguous items.</p>
+      <div class="lines">
+        <p>Across the 81 questions in the human study, model errors and human errors land on different items. Gemini-2.5-Pro missed 19 of the 60 that every evaluator answered correctly, and answered 11 of the 21 that tripped at least one person. The questions are answerable, so the shortfall is not an artifact of ambiguous items.</p>
       </div>
     </div></div>
+    </article>
+
   </div>
 </section>
 
@@ -347,8 +346,7 @@
 <section class="section" id="augmentation">
   <div class="container is-max-desktop">
     <div class="section-head">
-      <p class="eyebrow">View augmentation</p>
-      <h2>Synthetic in-between views help general models, not the spatial ones</h2>
+      <h2>Geometry-guided view augmentation</h2>
     </div>
 
     <ol class="pipeline">
