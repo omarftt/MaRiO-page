@@ -15,6 +15,10 @@
     return n;
   }
 
+  function nCorrect(item) {
+    return item.predictions.filter(function (p) { return p.correct; }).length;
+  }
+
   function viewStrip(item) {
     var wrap = el('div', 'views n' + item.agents);
     item.images.forEach(function (stem, i) {
@@ -38,16 +42,34 @@
   function build(host, items) {
     host.innerHTML = '';
     var tabsHost = el('div', 'exp-tabs');
+    var legend = el('div', 'exp-legend');
     var panel = el('div', 'exp-panel');
     tabsHost.setAttribute('role', 'tablist');
     tabsHost.setAttribute('aria-label', 'Reasoning tasks');
     host.appendChild(tabsHost);
+    host.appendChild(legend);
     host.appendChild(panel);
 
     var tasks = TASK_ORDER.filter(function (t) {
       return items.some(function (i) { return i.task === t; });
     });
-    var state = { task: tasks[0], agents: {} };
+
+    // open on the example models find hardest, so the stakes are visible first
+    var hardest = items.slice().sort(function (a, b) { return nCorrect(a) - nCorrect(b); })[0];
+    var state = { task: hardest.task, agents: {} };
+    state.agents[hardest.task] = hardest.agents;
+
+    // legend for the tab dots, plus a per-example model score
+    var keyStatic = el('span', 'key');
+    keyStatic.appendChild(el('span', 'dot static'));
+    keyStatic.appendChild(el('span', null, 'static perception'));
+    var keyComp = el('span', 'key');
+    keyComp.appendChild(el('span', 'dot comp'));
+    keyComp.appendChild(el('span', null, 'compositional'));
+    var score = el('span', 'exp-score');
+    legend.appendChild(keyStatic);
+    legend.appendChild(keyComp);
+    legend.appendChild(score);
 
     function render() {
       Array.prototype.forEach.call(tabsHost.children, function (b) {
@@ -58,6 +80,10 @@
                       .sort(function (a, b) { return a.agents - b.agents; });
       var want = state.agents[state.task] || pool[0].agents;
       var item = pool.filter(function (i) { return i.agents === want; })[0] || pool[0];
+
+      var ok = nCorrect(item), total = item.predictions.length;
+      score.textContent = ok + ' of ' + total + ' models got this right';
+      score.className = 'exp-score ' + (ok === 0 ? 'none' : ok === total ? 'all' : 'some');
 
       panel.innerHTML = '';
       panel.classList.remove('revealed');
@@ -88,17 +114,26 @@
       var buttons = [];
       var revealed = false;
       var btn, note, preds;
+      var answerLetter = LETTERS[item.choices.indexOf(item.answer)];
 
-      function reveal() {
+      function reveal(picked) {
         if (revealed) return;
         revealed = true;
         panel.classList.add('revealed');
         buttons.forEach(function (b) {
           b.classList.add(b.dataset.choice === item.answer ? 'is-answer' : 'is-wrong');
+          if (picked != null && b.dataset.choice === picked) b.classList.add('is-picked');
         });
         btn.disabled = true;
         btn.textContent = 'Answer shown';
-        note.textContent = '';
+        if (picked == null) {
+          note.textContent = 'The answer is ' + answerLetter + '.';
+        } else if (picked === item.answer) {
+          note.innerHTML = 'You picked <b>' + answerLetter + '</b>, which is right.';
+        } else {
+          note.innerHTML = 'You picked <b>' + LETTERS[item.choices.indexOf(picked)] +
+                           '</b>. The answer is <b>' + answerLetter + '</b>.';
+        }
         preds.hidden = false;
       }
 
@@ -108,7 +143,7 @@
         b.dataset.choice = choice;
         b.appendChild(el('span', 'letter', LETTERS[i] + ')'));
         b.appendChild(el('span', null, choice));
-        b.addEventListener('click', reveal);
+        b.addEventListener('click', function () { reveal(choice); });
         buttons.push(b);
         opts.appendChild(b);
       });
@@ -117,8 +152,8 @@
       var row = el('div', 'reveal-row');
       btn = el('button', 'reveal', 'Reveal answer');
       btn.type = 'button';
-      btn.addEventListener('click', reveal);
-      note = el('span', 'answer-note', 'Pick an option, or reveal it, to see what the models answered.');
+      btn.addEventListener('click', function () { reveal(null); });
+      note = el('span', 'answer-note pick-note', 'Pick an option to see how you do against the models.');
       row.appendChild(btn); row.appendChild(note);
       panel.appendChild(row);
 

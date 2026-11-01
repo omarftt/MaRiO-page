@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MaRiO</title>
 
-<meta name="description" content="MaRiO is a benchmark for multi-agent collaborative spatial reasoning in MLLMs. Several agents observe one scene from independent viewpoints, with no shared camera poses or geometry.">
+<meta name="description" content="MaRiO is a benchmark for multi-agent collaborative spatial reasoning in MLLMs. Two or three agents share a scene but not a coordinate frame, and the model gets only their raw views.">
 <meta name="keywords" content="MaRiO, multi-agent reasoning, spatial reasoning, MLLM, vision-language models, benchmark, cross-agent correspondence, egocentric, NeurIPS 2026">
 <meta name="robots" content="noindex, nofollow">
 
 <meta property="og:title" content="MaRiO: Multi-agent Collaborative Reasoning via Shared Observations in MLLMs">
-<meta property="og:description" content="Several agents see one scene from viewpoints that do not line up. 23 MLLMs fall far below human accuracy.">
+<meta property="og:description" content="Two or three agents share a scene but not a coordinate frame. Given only their raw views, the best of 23 models scores 55.7 where humans score 73.2.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="static/images/figures/fig1_teaser.jpg">
+<meta property="og:image" content="static/images/figures/teaser_scene.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MaRiO: Multi-agent Collaborative Reasoning in MLLMs">
 <meta name="twitter:description" content="A benchmark for reasoning across independently oriented agent viewpoints, with no shared geometry.">
-<meta name="twitter:image" content="static/images/figures/fig1_teaser.jpg">
+<meta name="twitter:image" content="static/images/figures/teaser_scene.jpg">
 
 <meta name="citation_title" content="MaRiO: Multi-agent Collaborative Reasoning via Shared Observations in MLLMs">
 <meta name="citation_author" content="Redmond, Nathaniel">
@@ -69,6 +69,9 @@
       <p class="venue">NeurIPS 2026, Datasets and Benchmarks Track</p>
 
       <div class="publication-links">
+        <a href="#explorer" class="external-link button is-rounded is-try">
+          <span class="icon"><svg class="ico" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM176 168v176c0 8.6 4.6 16.5 12.1 20.8s16.6 4.2 24-.2l144-88c7.1-4.4 11.5-12.1 11.5-20.6s-4.4-16.2-11.5-20.6l-144-88c-7.4-4.5-16.6-4.6-24-.2S176 159.4 176 168z"/></svg></span>
+          <span>Try an example</span></a>
         <span class="link-block">
           <span class="button is-rounded is-soon" aria-disabled="true">
             <span class="icon"><svg class="ico" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M320 464c8.8 0 16-7.2 16-16V160H256c-17.7 0-32-14.3-32-32V48H64c-8.8 0-16 7.2-16 16V448c0 8.8 7.2 16 16 16H320zM0 64C0 28.7 28.7 0 64 0H229.5c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64z"/></svg></span>
@@ -77,7 +80,7 @@
         </span>
         <span class="link-block">
           <span class="button is-rounded is-soon" aria-disabled="true">
-            <span class="icon"><svg class="ico" viewBox="0 0 496 512" aria-hidden="true"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg></span>
+            <span class="icon"><svg class="ico" viewBox="0 0 496 512" aria-hidden="true"><path fill="currentColor" d="M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg></span>
             <span>Code</span><span class="soon">soon</span>
           </span>
         </span>
@@ -96,18 +99,41 @@
 <section class="hero teaser">
   <div class="container is-max-widescreen hero-body">
     <h2 class="teaser-line">
-      Several agents see one scene from viewpoints that do not line up,
-      and nothing tells the model how they relate.
+      Two or three agents share a scene but not a coordinate frame. Given only their raw views,
+      the best of 23 models scores 55.7, where humans score 73.2.
     </h2>
-    <figure class="figure">
-      <picture>
-        <source srcset="static/images/figures/fig1_teaser.webp" type="image/webp">
-        <img src="static/images/figures/fig1_teaser.jpg" width="2400" height="1220"
-             alt="Three agents observe one house from independent viewpoints. Their egocentric views are shown at the left, and the question asks what steps Agent 3 should take to get Agent 1 directly in front of it.">
-      </picture>
+
+    <figure class="teaser-fig">
+      <div class="teaser-grid">
+        <div class="teaser-agents">
+          <picture><source srcset="static/images/figures/teaser_agent1.webp" type="image/webp">
+          <img src="static/images/figures/teaser_agent1.jpg" width="620" height="361"
+               alt="Agent 1 looks down a hallway towards an armchair and a staircase."></picture>
+          <picture><source srcset="static/images/figures/teaser_agent2.webp" type="image/webp">
+          <img src="static/images/figures/teaser_agent2.jpg" width="620" height="365"
+               alt="Agent 2 faces a staircase with a bicycle and a potted plant beside it."></picture>
+          <picture><source srcset="static/images/figures/teaser_agent3.webp" type="image/webp">
+          <img src="static/images/figures/teaser_agent3.jpg" width="620" height="373"
+               alt="Agent 3 looks down over a bannister towards a plant and the floor below."></picture>
+        </div>
+        <picture class="teaser-scene"><source srcset="static/images/figures/teaser_scene.webp" type="image/webp">
+        <img src="static/images/figures/teaser_scene.jpg" width="2000" height="941"
+             alt="Cutaway view of the house showing where all three agents stand and which way each is facing."></picture>
+      </div>
+
+      <div class="teaser-q">
+        <p class="q">What steps should Agent 3 take to get Agent 1 directly in front of it?</p>
+        <ol class="teaser-opts">
+          <li class="is-answer">Move forward, turn right, move forward, turn right</li>
+          <li>Move forward, turn left, move forward, turn right</li>
+          <li>Move forward, turn right, move backward, turn right</li>
+          <li>Turn around, move backward, turn right, move forward</li>
+        </ol>
+      </div>
+
       <figcaption>
-        Each agent observes the same environment from its own coordinate frame. A model has to establish
-        cross-agent correspondence before it can infer any spatial relation.
+        The model sees only the three views on the left. The cutaway is drawn here for the reader and is
+        never given to the model, so the three frames have to be matched before the question can be answered.
       </figcaption>
     </figure>
   </div>
@@ -122,12 +148,13 @@
         <p>
           Multimodal LLMs are usually evaluated on a single view, or on several views that share camera
           parameters. Collaborative settings are different. Several agents observe one environment from
-          independent viewpoints, and a reliable decision needs reasoning across all of them. We introduce
-          <strong>MaRiO</strong>, a benchmark for multi-agent collaborative reasoning, and evaluate
-          <strong>23</strong> state of the art MLLMs on it. Static perception proves easier than composing
-          geometric transformations, most models fail to resolve cross-agent correspondence as scenes grow
-          more complex, and few exploit the geometric cues already present in the image. Geometry-guided
-          synthetic views recover part of the gap, but not all of it.
+          independent viewpoints, and no agent can answer on its own. We introduce <strong>MaRiO</strong>,
+          a benchmark for multi-agent collaborative reasoning, and evaluate <strong>23</strong>
+          state-of-the-art MLLMs on it. The best of them scores 55.7 where humans score 73.2 and chance is
+          23.9. Reading a spatial fact off a matched pair of views is the easy part. What models cannot do
+          is work out which part of one view corresponds to which part of another, and the shortfall grows
+          when a third agent is added. Geometry-guided synthetic views recover about one point, and only
+          for general-purpose models.
         </p>
       </div>
     </div></div>
@@ -139,7 +166,7 @@
   <div class="container is-max-desktop">
     <div class="section-head">
       <p class="eyebrow">Motivation</p>
-      <h2>Earlier benchmarks hand the model a single coordinate frame</h2>
+      <h2>Existing benchmarks hand the model a single coordinate frame</h2>
     </div>
 
     <figure class="table-figure">
@@ -147,24 +174,23 @@
         <picture>
           <source srcset="static/images/tables/table1_comparison.webp" type="image/webp">
           <img src="static/images/tables/table1_comparison.png" width="2400" height="799" loading="lazy"
-               alt="Comparison of MaRiO with eleven existing visual reasoning benchmarks across setup, reasoning requirement, camera geometry and auxiliary information.">
+               alt="Comparison table. MaRiO is the only benchmark listed that is multi-agent, has independent camera geometry and provides nothing beyond RGB.">
         </picture>
         <span class="row-outline" style="left:0.3%; top:87.4%; width:99.4%; height:9.4%"></span>
       </div></div>
       <figcaption>
-        MaRiO is the only entry that is multi-agent, leaves camera geometry independent, and provides no
-        auxiliary information beyond RGB.
+        MaRiO is the only row with more than one agent, independent camera geometry and no input beyond RGB.
       </figcaption>
     </figure>
 
     <div class="columns is-centered"><div class="column is-four-fifths">
-      <div class="lines">
-        <p><strong>Single view.</strong> One perspective, so cross-view ambiguity cannot be resolved at all.</p>
-        <p><strong>Multi view.</strong> Several images, but captured along one trajectory and usually shipped
-           with poses, intrinsics or point clouds.</p>
-        <p><strong>Multi agent.</strong> Each agent has its own egocentric frame and no shared metadata.
-           Correspondence has to be established first, and only then can a spatial relation be read.</p>
-      </div>
+      <dl class="setups">
+        <div><dt>Single view</dt><dd>One image, so there are no frames to match.</dd></div>
+        <div><dt>Multi-view</dt><dd>Several images, captured along one trajectory and usually shipped with
+            poses, intrinsics or point clouds.</dd></div>
+        <div><dt>Multi-agent</dt><dd>Each agent has its own egocentric frame and no shared metadata.
+            Matching the frames is the first half of every question.</dd></div>
+      </dl>
     </div></div>
   </div>
 </section>
@@ -174,28 +200,29 @@
   <div class="container is-max-desktop">
     <div class="section-head">
       <p class="eyebrow">Benchmark</p>
-      <h2>3,255 questions over 1,680 observation sets, RGB only</h2>
+      <h2>The model gets raw RGB from two or three agents and nothing else</h2>
     </div>
 
     <div class="stat-strip">
       <div class="stat"><b>3,255</b><span>questions</span></div>
       <div class="stat"><b>1,680</b><span>observation sets</span></div>
-      <div class="stat"><b>3,425</b><span>unique views</span></div>
+      <div class="stat"><b>1,371</b><span>agent pairs</span></div>
+      <div class="stat"><b>309</b><span>agent triplets</span></div>
       <div class="stat"><b>5</b><span>tasks</span></div>
-      <div class="stat"><b>2 or 3</b><span>agents</span></div>
       <div class="stat"><b>23</b><span>models</span></div>
     </div>
 
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
-        <p><strong>Input.</strong> Two or three synchronized views and a four-choice question. No camera poses,
-           no intrinsics, no depth, no point clouds, no scene graphs.</p>
+        <p><strong>Input.</strong> Two or three synchronized views and a four-choice question. No camera
+           poses, no intrinsics, no depth, no scene graphs.</p>
         <p><strong>Scenes.</strong> 913 real image sets from RealEstate10K and NAVI, plus 767 synthetic sets
            from VirtualHome, Habitat-Sim and AI2-THOR.</p>
-        <p><strong>Tasks.</strong> Distance Awareness, Occlusion and Relative Position read spatial facts off
-           the aligned views. Egocentric Motion and Navigation compose transformations between them.</p>
-        <p><strong>Annotation.</strong> Three expert annotators wrote and cross-checked every question. An LLM
-           only polished phrasing and drafted distractors, and every ground-truth label is human.</p>
+        <p>Distance Awareness, Occlusion and Relative Position ask for one spatial fact once the views are
+           matched. Egocentric Motion and Navigation ask the model to compose a transformation between
+           frames.</p>
+        <p>Three annotators wrote and cross-checked every question. An LLM polished phrasing and drafted
+           distractors. Every ground-truth label is human.</p>
       </div>
     </div></div>
 
@@ -214,26 +241,27 @@
     </div>
 
     <figure class="table-figure">
-      <div class="table-scroll"><div class="hl-frame narrow">
+      <div class="table-scroll"><div class="hl-frame">
         <picture>
           <source srcset="static/images/tables/table2_results.webp" type="image/webp">
           <img src="static/images/tables/table2_results.png" width="2400" height="2430" loading="lazy"
-               alt="Zero-shot accuracy of 23 MLLMs on MaRiO across the five tasks, with human and random reference rows.">
+               alt="Zero-shot accuracy of 23 models on the five tasks. Human evaluators score 73.2 overall and the best model 55.7.">
         </picture>
       </div></div>
       <figcaption>
-        Zero-shot accuracy on MaRiO. Comp. is compositional reasoning over geometric transformations,
-        Static Perc. is static perception. Within each model group, best and second best are shaded.
+        Zero-shot accuracy on MaRiO. Comp. groups the two tasks that compose a transformation between
+        frames, Static Perc. the three that read a fact off matched views. Within each model group, best
+        and second best are shaded.
       </figcaption>
     </figure>
 
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
-        <p><strong>The gap.</strong> Humans reach 73.2. The strongest model, Gemini-2.5-Pro, reaches 55.7.
-           The strongest open model, Ovis2.5-9B, reaches 41.2, against a random baseline of 23.9.</p>
-        <p><strong>Where it hurts.</strong> Navigation and Egocentric Motion sit closest to random.
-           Occlusion and Relative Position hold up best, so coarse spatial perception survives where
-           viewpoint-dependent geometry does not.</p>
+        <p><strong>The gap.</strong> Humans score 73.2. The best model, Gemini-2.5-Pro, stops at 55.7, which
+           is 17.5 points short. The best open model, Ovis2.5-9B, gets 41.2. Chance is 23.9.</p>
+        <p><strong>By task.</strong> Navigation and Egocentric Motion sit closest to chance. Occlusion and
+           Relative Position hold up best. Models still see the scene. What they cannot do is carry a
+           direction out of one agent's frame and into another's.</p>
       </div>
     </div></div>
   </div>
@@ -257,21 +285,21 @@
     <figure class="figure narrow">
       <picture><source srcset="static/images/figures/fig3_no_transfer.webp" type="image/webp">
       <img src="static/images/figures/fig3_no_transfer.png" width="1578" height="1397" loading="lazy"
-           alt="Hexbin density of static perceptual accuracy against compositional accuracy, pooled across models, with a nearly flat regression line."></picture>
+           alt="Static perceptual accuracy plotted against compositional accuracy. The points fill the whole square and the fitted line is almost flat, so one does not predict the other."></picture>
     </figure>
 
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
         <p><strong>Some models ignore the other view.</strong> Remove one observation, or all of them, and
-           open-source accuracy hardly moves. On compositional tasks several stay above random with no image
-           at all, which means the answer comes from option priors rather than from the scene.</p>
+           open-source accuracy hardly moves. On compositional tasks several stay above chance with no image
+           at all, so the answer is coming from the option list rather than the scene.</p>
       </div>
     </div></div>
-    <figure class="figure">
+    <figure class="figure"><div class="fig-scroll">
       <picture><source srcset="static/images/figures/fig4_removal.webp" type="image/webp">
       <img src="static/images/figures/fig4_removal.png" width="2400" height="373" loading="lazy"
-           alt="Bar charts for five models comparing accuracy with all views present, one view missing and all views missing."></picture>
-    </figure>
+           alt="Five models compared with all views present, one view missing and all views missing. For the open-source models the three bars are nearly the same height."></picture>
+    </div></figure>
 
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
@@ -280,31 +308,32 @@
            at once, and Navigation and Egocentric Motion suffer most.</p>
       </div>
     </div></div>
-    <figure class="figure">
+    <figure class="figure"><div class="fig-scroll">
       <picture><source srcset="static/images/figures/fig5_agents.webp" type="image/webp">
       <img src="static/images/figures/fig5_agents.png" width="2400" height="503" loading="lazy"
-           alt="Bar charts for six models comparing two-agent and three-agent accuracy, overall and per task."></picture>
-    </figure>
+           alt="Six models, two-agent against three-agent accuracy. The three-agent bar is lower for almost every model and task."></picture>
+    </div></figure>
 
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
-        <p><strong>Orientation is unstable.</strong> Flipping the images and swapping the direction words
-           leaves a geometrically identical question, yet 22 to 32 percent of answers change. Bias ratios of
-           0.47 to 0.59 put every model near coin-flip fragility, and the drop is larger for directional
-           questions than for obstacle ones, so the instability comes from the language cue.</p>
+        <p><strong>Orientation is unstable.</strong> Mirror the images and swap left for right in the text,
+           and the question is geometrically identical. Between 22 and 32 percent of answers change anyway,
+           with bias ratios of 0.47 to 0.59. Directional questions break more than obstacle questions, which
+           points at the direction words rather than the pixels.</p>
       </div>
     </div></div>
-    <figure class="figure">
+    <figure class="figure"><div class="fig-scroll">
       <picture><source srcset="static/images/figures/fig6_flip.webp" type="image/webp">
       <img src="static/images/figures/fig6_flip.png" width="2400" height="566" loading="lazy"
-           alt="Left, question outcomes under original and flipped orientations with bias ratios near one half. Right, accuracy change by reasoning sub-category."></picture>
-    </figure>
+           alt="Left, how often each model's answer changes under mirroring, with bias ratios close to one half. Right, directional navigation questions shift further than obstacle questions."></picture>
+    </div></figure>
 
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines takeaway">
-        <p><strong>Humans fail elsewhere.</strong> Of the 60 questions every evaluator answered correctly,
-           Gemini-2.5-Pro missed 19. Of the 21 that tripped at least one person, it answered 11. The two error
-           sets barely overlap, so the questions are answerable and the gap is real.</p>
+        <p><strong>Humans fail elsewhere.</strong> Across the 81 questions in the human study, model errors
+           and human errors land on different items. Gemini-2.5-Pro missed 19 of the 60 that every evaluator
+           got right, and answered 11 of the 21 that tripped at least one person. The questions are
+           answerable, so the shortfall is not an artifact of ambiguous items.</p>
       </div>
     </div></div>
   </div>
@@ -329,31 +358,29 @@
         <p class="step-title"><span class="n">2</span> Point cloud</p>
         <picture><source srcset="static/images/figures/fig8_s2_cloud.webp" type="image/webp">
         <img src="static/images/figures/fig8_s2_cloud.jpg" width="1400" height="447" loading="lazy"
-             alt="A 3D point cloud of the room reconstructed from the agent observations."></picture>
+             alt="A 3D point cloud of the room reconstructed from those observations."></picture>
       </li>
       <li>
         <p class="step-title"><span class="n">3</span> Interpolated frames</p>
         <picture><source srcset="static/images/figures/fig8_s3_interp.webp" type="image/webp">
         <img src="static/images/figures/fig8_s3_interp.jpg" width="1400" height="256" loading="lazy"
-             alt="A sequence of interpolated video frames sweeping between the agent viewpoints."></picture>
+             alt="A sequence of frames sweeping between the agent viewpoints."></picture>
       </li>
       <li>
         <p class="step-title"><span class="n">4</span> Novel views</p>
         <picture><source srcset="static/images/figures/fig8_s4_novel.webp" type="image/webp">
         <img src="static/images/figures/fig8_s4_novel.jpg" width="1400" height="357" loading="lazy"
-             alt="Two synthesized novel views of the room from positions between the agents."></picture>
+             alt="Two synthesized views of the room from positions between the agents."></picture>
       </li>
     </ol>
-    <p class="caption">
-      The four stages of geometry-guided view synthesis, re-laid out from the single column used in the paper.
-    </p>
+    <p class="caption">Geometry-guided view synthesis, in four stages.</p>
 
     <figure class="table-figure">
       <div class="table-scroll"><div class="hl-frame narrow">
         <picture>
           <source srcset="static/images/tables/table4_synthetic.webp" type="image/webp">
           <img src="static/images/tables/table4_synthetic.png" width="2058" height="1473" loading="lazy"
-               alt="Accuracy of four models before and after adding synthetic views, with per-task deltas.">
+               alt="Four models before and after adding synthetic views, with the change on each task. Qwen2.5-VL-7B gains most, the two spatial models lose ground.">
         </picture>
       </div></div>
       <figcaption>Shaded cells improve after adding synthetic views.</figcaption>
@@ -361,13 +388,13 @@
 
     <div class="columns is-centered"><div class="column is-four-fifths">
       <div class="lines">
-        <p><strong>Method.</strong> Reconstruct a point cloud from the agent views, interpolate camera poses,
-           render the frames in between, then let a diffusion video model turn them into novel views. They
-           enter as extra visual context, not as another agent.</p>
-        <p><strong>Effect.</strong> Qwen2.5-VL-7B gains 1.1 overall, with 4.5 on Occlusion and 3.9 on Relative
-           Position. Spatial models gain nothing or lose ground, since they already infer geometry and the
-           generated frames introduce small inconsistencies. Twelve frames works best, and cropped real frames
-           do not reproduce the gain, so the benefit comes from the new viewpoints.</p>
+        <p><strong>Setup.</strong> A diffusion video model turns the rendered in-between frames into novel
+           views. They go in as extra context for the same question, and no new agent is added.</p>
+        <p><strong>Effect.</strong> Qwen2.5-VL-7B gains 1.1 overall, with 4.5 on Occlusion and 3.9 on
+           Relative Position. Spatially trained models gain nothing or lose ground, which the paper reads as
+           the generated frames introducing small geometric inconsistencies. Twelve frames is the best
+           setting, and cropping real frames instead does not reproduce the gain, so what helps is the new
+           viewpoint and not the extra pixels.</p>
       </div>
     </div></div>
   </div>

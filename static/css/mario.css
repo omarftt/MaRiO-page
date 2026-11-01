@@ -37,7 +37,7 @@ a { color: var(--a1); }
 .publication-title.is-1 {
   font-family: var(--title-font); font-size: 48px; font-weight: 700;
   line-height: 1.18; letter-spacing: -.015em; color: var(--ink);
-  max-width: 24ch; margin: 0 auto .9rem;
+  max-width: 17ch; margin: 0 auto .9rem;
 }
 .brand { color: var(--a1); }
 .publication-authors { font-family: var(--title-font); font-size: 20px; line-height: 1.5; }
@@ -86,7 +86,7 @@ a { color: var(--a1); }
 }
 .section-head h2 {
   font-family: var(--title-font); font-size: 26.6px; font-weight: 700;
-  line-height: 1.25; color: var(--ink); max-width: 26ch; margin: 0 auto;
+  line-height: 1.25; color: var(--ink); max-width: 44ch; margin: 0 auto;
 }
 .section .title.is-3 { font-family: var(--title-font); }
 
@@ -102,7 +102,7 @@ a { color: var(--a1); }
 .figure { margin: 1.6rem auto 2.2rem; text-align: center; }
 .figure img { max-width: 100%; height: auto; border-radius: 6px; }
 .figure.narrow img { max-width: 520px; }
-.figure figcaption, .caption {
+.figure figcaption, .table-figure figcaption, .caption {
   font-size: 14.7px; line-height: 1.5; color: var(--muted);
   text-align: center; max-width: 74ch; margin: .9rem auto 0;
 }
@@ -192,7 +192,7 @@ a { color: var(--a1); }
 .seg button:hover:not(.is-on) { background: #EDF1F5; }
 
 .views { display: grid; gap: .5rem; margin-bottom: .9rem; }
-.views.n2 { grid-template-columns: 1fr 1fr; }
+.views.n2 { grid-template-columns: repeat(2, minmax(0, 320px)); justify-content: center; }
 .views.n3 { grid-template-columns: 1fr 1fr 1fr; }
 .view { margin: 0; }
 .view img {
@@ -285,14 +285,104 @@ a { color: var(--a1); }
   .stat b { font-size: 22px; }
   .pipeline { grid-template-columns: 1fr; gap: 1.2rem; }
   .opts { grid-template-columns: 1fr; }
-  .views.n3 { grid-template-columns: 1fr 1fr; }
+  .views.n2, .views.n3 { grid-template-columns: repeat(3, 1fr); }
+  .views.n2 { grid-template-columns: 1fr 1fr; }
   .figure.narrow img { max-width: 100%; }
   .hl-frame { width: 640px; max-width: none; }
   .hl-frame img { min-width: 0; }
   .pred { flex-wrap: wrap; }
   .pred .who { flex: 0 0 100%; }
+  /* a wrapped tab strip breaks the "merge into the panel" trick, so use an accent bar */
+  .exp-tab { top: 0; border-radius: 6px; }
+  .exp-tab[aria-selected="true"] { border-color: transparent; box-shadow: inset 0 -2px 0 var(--a1); }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 
 /* breathing room between the pipeline caption and the table that follows */
 .pipeline + .caption { margin-bottom: 2.4rem; }
+
+/* ------------------------------------------------- hero: try button */
+.publication-links .button.is-try {
+  background: var(--ink); border-color: var(--ink); color: #fff;
+}
+.publication-links .button.is-try:hover { background: var(--a1); border-color: var(--a1); }
+
+/* --------------------------------------- teaser, rebuilt from crops */
+.teaser-fig { margin: 0; }
+.teaser-grid {
+  display: grid; grid-template-columns: 220px 1fr; gap: 1rem; align-items: start;
+}
+.teaser-agents { display: grid; gap: .5rem; }
+.teaser-agents img, .teaser-scene img {
+  width: 100%; height: auto; display: block; border-radius: 6px;
+}
+.teaser-q {
+  max-width: 900px; margin: 1.5rem auto 0; text-align: left;
+}
+.teaser-q .q {
+  font-family: var(--title-font); font-size: 17px; font-weight: 600;
+  color: var(--ink); margin-bottom: .7rem;
+}
+.teaser-opts {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: .4rem;
+  counter-reset: opt;
+}
+.teaser-opts li {
+  counter-increment: opt; font-size: 14.5px; line-height: 1.35; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 7px; padding: .45rem .6rem; background: #fff;
+}
+.teaser-opts li::before {
+  content: counter(opt, upper-alpha) ") ";
+  font-family: var(--title-font); font-weight: 700; color: var(--faint);
+}
+.teaser-opts li.is-answer { background: var(--ok-soft); border-color: #A9CDB6; }
+.teaser-opts li.is-answer::before { color: var(--ok); }
+.teaser-opts li.is-answer::after { content: " ✓"; color: var(--ok); font-weight: 700; }
+.teaser-fig figcaption {
+  font-size: 14.7px; line-height: 1.5; color: var(--muted);
+  text-align: center; max-width: 74ch; margin: 1.4rem auto 0;
+}
+
+/* -------------------------- wide analysis strips stay legible on small screens */
+.fig-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* ------------------------------------------- motivation definition list */
+.setups { margin: 0; display: grid; gap: .8rem; }
+.setups div { display: grid; grid-template-columns: 8.5rem 1fr; gap: .8rem; align-items: baseline; }
+.setups dt {
+  font-family: var(--title-font); font-weight: 600; font-size: 15px; color: var(--ink);
+  text-align: right; border-right: 2px solid var(--line); padding-right: .8rem;
+}
+.setups dd { margin: 0; font-size: 16px; line-height: 24px; }
+
+/* ----------------------------------- explorer: legend, score, picked option */
+.exp-legend {
+  display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+  font-size: 12px; color: var(--muted); padding: .55rem 1.2rem 0;
+}
+.exp-legend .key { display: inline-flex; align-items: center; gap: .35rem; }
+.exp-legend .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+.exp-legend .dot.static { background: var(--a1); }
+.exp-legend .dot.comp { background: var(--a2); }
+.exp-score {
+  margin-left: auto; font-family: var(--title-font); font-size: 12.5px; font-weight: 600;
+  border-radius: 999px; padding: .15rem .6rem;
+}
+.exp-score.none { background: var(--no-soft); color: var(--no); }
+.exp-score.some { background: #FBF1E0; color: #9A6410; }
+.exp-score.all  { background: var(--ok-soft); color: var(--ok); }
+.opt.is-picked { border-color: var(--ink); border-width: 2px; }
+.pick-note { font-size: 13.5px; color: var(--muted); }
+.pick-note b { color: var(--ink); }
+
+@media screen and (max-width: 768px) {
+  .teaser-grid { grid-template-columns: 1fr; }
+  .teaser-agents { grid-template-columns: repeat(3, 1fr); }
+  .teaser-opts { grid-template-columns: 1fr; }
+  .setups div { grid-template-columns: 1fr; gap: .15rem; }
+  .setups dt { text-align: left; border-right: none; border-left: 2px solid var(--a2); padding: 0 0 0 .6rem; }
+  .fig-scroll img { min-width: 620px; }
+  .exp-legend { padding: .55rem .9rem 0; }
+  .exp-score { margin-left: 0; }
+}
