@@ -100,10 +100,6 @@
 <!-- ======================= 2. TEASER ======================= -->
 <section class="hero teaser">
   <div class="container is-max-widescreen hero-body">
-    <h2 class="teaser-line">
-      Two or three agents share a scene but not a coordinate frame. Given only their raw views,
-      the best of 23 models scores 55.7, where humans score 73.2.
-    </h2>
 
     <figure class="teaser-fig">
       <div class="teaser-grid">
@@ -136,8 +132,8 @@
       <figcaption>
         <strong>Multi-agent collaborative reasoning in a shared environment,</strong> where multiple agents
         observe the same environment from independent coordinate frames, requiring cross-agent
-        correspondence before inferring spatial and geometric relations. The model receives only the three
-        views on the left; the cutaway is drawn for the reader.
+        correspondence before inferring spatial and geometric relations. Only the three views on the left go to the
+        model. The cutaway is here so you can see where the agents actually are.
       </figcaption>
     </figure>
   </div>
@@ -287,71 +283,115 @@
       <h2>Analysis</h2>
     </div>
 
-    <article class="finding">
-      <h3>Static perception and compositional reasoning</h3>
-    <div class="columns is-centered"><div class="column is-four-fifths">
-      <div class="lines">
-        <p>Pooled over every model, compositional accuracy barely tracks static perceptual accuracy. The fit gives a slope of 0.15 and an <em>R</em><sup>2</sup> of 0.028, so strength on one group of tasks says little about the other.</p>
-      </div>
-    </div></div>
-    <figure class="figure narrow">
-      <picture><source srcset="static/images/figures/fig3_no_transfer.webp" type="image/webp">
-      <img src="static/images/figures/fig3_no_transfer.png" width="1600" height="1437" loading="lazy"
-           alt="Static perceptual accuracy plotted against compositional accuracy. The points fill the whole square and the fitted line is almost flat, so one does not predict the other."></picture>
-    </figure>
-    </article>
+    <div class="agroup">
+      <h3 class="agroup-title">From static perception to compositional reasoning</h3>
+      <article class="finding">
+        <h4>Relationship between the two groups</h4>
+        <div class="columns is-centered"><div class="column is-four-fifths">
+          <div class="lines"><p>Pooled over every model, compositional accuracy barely tracks static perceptual accuracy. The fit gives a slope of 0.15 and an <em>R</em><sup>2</sup> of 0.028, and per-model regressions are just as flat, so strength on one group says little about the other.</p></div>
+        </div></div>
+        <figure class="figure narrow">
+        <picture><source srcset="static/images/figures/fig3_no_transfer.webp" type="image/webp">
+        <img src="static/images/figures/fig3_no_transfer.png" width="1600" height="1437" loading="lazy"
+             alt="Static perceptual accuracy plotted against compositional accuracy. The points fill the whole square and the fitted line is almost flat, so one does not predict the other."></picture>
+        </figure>
+      </article>
+      <article class="finding">
+        <h4>Effect of removing observations</h4>
+        <div class="columns is-centered"><div class="column is-four-fifths">
+          <div class="lines"><p>Withholding one observation, or all of them, leaves open-source accuracy on the compositional tasks almost unchanged, and several models stay above chance there with no image at all. Proprietary models degrade consistently, and Distance Awareness collapses for everyone once the views are gone.</p></div>
+        </div></div>
+        <figure class="figure"><div class="fig-scroll" tabindex="0" role="region"
+             aria-label="Chart, scroll sideways to see all panels">
+        <picture><source srcset="static/images/figures/fig4_removal.webp" type="image/webp">
+        <img src="static/images/figures/fig4_removal.png" width="2400" height="373" loading="lazy"
+             alt="Five models compared with all views present, one view missing and all views missing. On the compositional tasks the three bars are nearly level for the open-source models, while Distance Awareness collapses when the views are removed."></picture>
+        </div></figure>
+      </article>
+      <p class="takeaway"><span>Takeaway</span>Strong static perception does not translate into reliable geometric reasoning in MLLMs because they fail to integrate distributed multi-agent collaborative observations into single unified representations.</p>
+    </div>
 
-    <article class="finding">
-      <h3>Effect of removing observations</h3>
-    <div class="columns is-centered"><div class="column is-four-fifths">
-      <div class="lines">
-        <p>Withholding one observation, or all of them, leaves open-source accuracy on the compositional tasks almost unchanged. Several models stay above chance there with no image at all, so the answer is coming from the option list rather than the scene. Distance Awareness is the exception, and collapses once the views are gone.</p>
-      </div>
-    </div></div>
-    <figure class="figure"><div class="fig-scroll" tabindex="0" role="region" aria-label="Chart, scroll sideways to see all panels">
-      <picture><source srcset="static/images/figures/fig4_removal.webp" type="image/webp">
-      <img src="static/images/figures/fig4_removal.png" width="2400" height="373" loading="lazy"
-           alt="Five models compared with all views present, one view missing and all views missing. On the compositional tasks the three bars are nearly level for the open-source models, while Distance Awareness collapses when the views are removed."></picture>
-    </div></figure>
-    </article>
+    <div class="agroup">
+      <h3 class="agroup-title">Cross-agent correspondence under relational complexity</h3>
+      <article class="finding">
+        <h4>Increasing the number of agents</h4>
+        <div class="columns is-centered"><div class="column is-four-fifths">
+          <div class="lines"><p>Going from two agents to three lowers accuracy across almost every model and category. Each extra viewpoint enlarges the set of correspondences that must hold at once, and Navigation and Egocentric Motion are affected most.</p></div>
+        </div></div>
+        <figure class="figure"><div class="fig-scroll" tabindex="0" role="region"
+             aria-label="Chart, scroll sideways to see all panels">
+        <picture><source srcset="static/images/figures/fig5_agents.webp" type="image/webp">
+        <img src="static/images/figures/fig5_agents.png" width="2400" height="522" loading="lazy"
+             alt="Six models, two-agent against three-agent accuracy. The three-agent bar is lower for almost every model and task."></picture>
+        </div></figure>
+      </article>
+      <article class="finding">
+        <h4>Shared environmental landmarks</h4>
+        <div class="columns is-centered"><div class="column is-four-fifths">
+          <div class="lines"><p>Anchors are static objects visible to more than one agent, so they are the natural reference points for aligning views. Accuracy climbs with anchor density up to the six-to-nine bin and then falls away past ten, where many similar candidates make a spatial reference ambiguous rather than useful. Navigation and Egocentric Motion are the most sensitive, and the fall is steeper with three agents.</p></div>
+        </div></div>
+        <figure class="figure narrow">
+        <picture><source srcset="static/images/figures/fig14_anchors.webp" type="image/webp">
+        <img src="static/images/figures/fig14_anchors.png" width="1300" height="906" loading="lazy"
+             alt="Accuracy against shared anchor density. Every task rises to a peak at the six to nine bin and falls away at ten or more."></picture>
+        </figure>
+      </article>
+      <p class="takeaway"><span>Takeaway</span>As independent observations from multiple agents and scene clutter increase, MLLMs struggle to resolve cross-view correspondences, leading to unstable reasoning.</p>
+    </div>
 
-    <article class="finding">
-      <h3>Effect of increasing the number of agents</h3>
-    <div class="columns is-centered"><div class="column is-four-fifths">
-      <div class="lines">
-        <p>Going from two agents to three lowers accuracy across almost every model and category. Each extra viewpoint enlarges the set of correspondences that must hold at once, and Navigation and Egocentric Motion are affected most.</p>
-      </div>
-    </div></div>
-    <figure class="figure"><div class="fig-scroll" tabindex="0" role="region" aria-label="Chart, scroll sideways to see all panels">
-      <picture><source srcset="static/images/figures/fig5_agents.webp" type="image/webp">
-      <img src="static/images/figures/fig5_agents.png" width="2400" height="522" loading="lazy"
-           alt="Six models, two-agent against three-agent accuracy. The three-agent bar is lower for almost every model and task."></picture>
-    </div></figure>
-    </article>
+    <div class="agroup">
+      <h3 class="agroup-title">Geometric consistency and structural cues</h3>
+      <article class="finding">
+        <h4>Orientation consistency under reflection</h4>
+        <div class="columns is-centered"><div class="column is-four-fifths">
+          <div class="lines"><p>Mirroring the images and swapping left for right in the text leaves a geometrically identical question. Between 22 and 32 percent of answers change regardless, with bias ratios of 0.50 to 0.59 for the models shown. Directional questions change more often than obstacle questions, which points at the direction words rather than the pixels.</p></div>
+        </div></div>
+        <figure class="figure"><div class="fig-scroll" tabindex="0" role="region"
+             aria-label="Chart, scroll sideways to see all panels">
+        <picture><source srcset="static/images/figures/fig6_flip.webp" type="image/webp">
+        <img src="static/images/figures/fig6_flip.png" width="2400" height="566" loading="lazy"
+             alt="Left, how often each model answer changes under mirroring, with bias ratios close to one half. Right, directional navigation questions shift further than obstacle questions."></picture>
+        </div></figure>
+      </article>
+      <article class="finding">
+        <h4>Depth cue complexity</h4>
+        <div class="columns is-centered"><div class="column is-four-fifths">
+          <div class="lines"><p>Relative depth comes from Depth Anything V2, and edge density is the share of pixels lying on a detected depth boundary. Samples are grouped by how many distinct depth layers a scene has, and high is compared against low edge density inside each group. Stronger depth structure does not help: most models do worse at higher edge density, the largest drop is in simple scenes, and across 20 models and three strata only one comparison survives Bonferroni correction at <em>&alpha;</em> = 0.0025.</p></div>
+        </div></div>
+        <figure class="figure"><div class="fig-scroll" tabindex="0" role="region"
+             aria-label="Chart, scroll sideways to see all panels">
+        <picture><source srcset="static/images/figures/fig17_depth_strata.webp" type="image/webp">
+        <img src="static/images/figures/fig17_depth_strata.jpg" width="1600" height="974" loading="lazy"
+             alt="Two scenes from the simple stratum and two from the complex one, each shown as the original image, its depth map, its depth layers and the detected depth edges in red."></picture>
+        </div></figure>
+        <figure class="figure"><div class="fig-scroll" tabindex="0" role="region"
+             aria-label="Chart, scroll sideways to see all panels">
+        <picture><source srcset="static/images/figures/fig7_depth.webp" type="image/webp">
+        <img src="static/images/figures/fig7_depth.png" width="2400" height="542" loading="lazy"
+             alt="Accuracy change between high and low depth edge density for six models, within the simple, moderate and complex strata. The effects scatter around zero."></picture>
+        </div></figure>
+      </article>
+      <p class="takeaway"><span>Takeaway</span>MLLMs exhibit weak use of geometric cues, with predictions sensitive to orientation changes and largely unaffected by scene geometry, leading to inconsistent reasoning and poor cross-agent alignment.</p>
+    </div>
 
-    <article class="finding">
-      <h3>Orientation consistency under reflection</h3>
-    <div class="columns is-centered"><div class="column is-four-fifths">
-      <div class="lines">
-        <p>Mirroring the images and swapping left for right in the text leaves a geometrically identical question. Between 22 and 32 percent of answers change regardless, with bias ratios of 0.50 to 0.59 for the models shown. Directional questions change more often than obstacle questions, which points at the direction words rather than the pixels.</p>
-      </div>
-    </div></div>
-    <figure class="figure"><div class="fig-scroll" tabindex="0" role="region" aria-label="Chart, scroll sideways to see all panels">
-      <picture><source srcset="static/images/figures/fig6_flip.webp" type="image/webp">
-      <img src="static/images/figures/fig6_flip.png" width="2400" height="566" loading="lazy"
-           alt="Left, how often each model answer changes under mirroring, with bias ratios close to one half. Right, directional navigation questions shift further than obstacle questions."></picture>
-    </div></figure>
-    </article>
+    <div class="agroup">
+      <h3 class="agroup-title">Human reasoning difficulty</h3>
+      <article class="finding">
+        <h4>Human errors and the human-model comparison</h4>
+        <div class="columns is-centered"><div class="column is-four-fifths">
+          <div class="lines"><p>Human evaluators reach 73.2 percent. Auditing every question at least one evaluator missed, direction confusion dominates: 13 of the 23 incorrect responses involve a rotated, mirrored, reversed or reordered direction. On the same 81 questions Gemini-2.5-Pro missed 19 of the 60 that every evaluator answered correctly, and answered 11 of the 21 that tripped at least one person.</p></div>
+        </div></div>
+        <figure class="figure"><div class="fig-scroll" tabindex="0" role="region"
+             aria-label="Chart, scroll sideways to see all panels">
+        <picture><source srcset="static/images/tables/table3_human.webp" type="image/webp">
+        <img src="static/images/tables/table3_human.png" width="2000" height="453" loading="lazy"
+             alt="Left, the 23 incorrect human responses by type, with 13 of them direction confusions. Right, human against Gemini-2.5-Pro correctness on the same 81 questions."></picture>
+        </div></figure>
+      </article>
+      <p class="takeaway"><span>Takeaway</span>Human errors reflect the cognitive cost of composing viewpoint transformations and do not coincide with model errors, indicating that MaRiO&rsquo;s questions are answerable while remaining demanding for both humans and MLLMs.</p>
+    </div>
 
-    <article class="finding">
-      <h3>Human and model errors</h3>
-    <div class="columns is-centered"><div class="column is-four-fifths">
-      <div class="lines">
-        <p>Across the 81 questions in the human study, model errors and human errors land on different items. Gemini-2.5-Pro missed 19 of the 60 that every evaluator answered correctly, and answered 11 of the 21 that tripped at least one person. The questions are answerable, so the shortfall is not an artifact of ambiguous items.</p>
-      </div>
-    </div></div>
-    </article>
-
+    <p class="further">The supplementary adds three analyses not shown here: bias towards navigational primitives, directional bias under cardinal remapping, and a replication of every finding above across 20 models.</p>
   </div>
 </section>
 

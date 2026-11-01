@@ -1,50 +1,50 @@
 {
  "items": [
   {
-   "id": 2105,
+   "id": 2302,
    "task": "Distance Awareness",
    "group": "static",
-   "source": "NAVI",
+   "source": "RealEstate10K",
    "agents": 2,
    "images": [
     {
-     "stem": "q2105_a1",
+     "stem": "q2302_a1",
      "w": 800,
-     "h": 600
+     "h": 450
     },
     {
-     "stem": "q2105_a2",
+     "stem": "q2302_a2",
      "w": 800,
-     "h": 600
+     "h": 450
     }
    ],
-   "question": "The hind legs of the dinosaur are further away from which agent(s)?",
+   "question": "Which agent is closer to the window?",
    "choices": [
     "Agent 1",
     "Agent 2",
     "neither",
     "both"
    ],
-   "answer": "Agent 1",
+   "answer": "Agent 2",
    "predictions": [
     {
      "model": "Gemini-2.5-Pro",
-     "answer": "Agent 1",
+     "answer": "Agent 2",
      "correct": true
     },
     {
      "model": "Qwen2.5-VL-7B",
      "answer": "Agent 2",
-     "correct": false
+     "correct": true
     },
     {
      "model": "InternVL3-8B",
-     "answer": "Agent 2",
+     "answer": "Agent 1",
      "correct": false
     },
     {
      "model": "Ovis2.5-9B",
-     "answer": "Agent 2",
+     "answer": "Agent 1",
      "correct": false
     }
    ]
