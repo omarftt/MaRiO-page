@@ -134,8 +134,10 @@
       </div>
 
       <figcaption>
-        The model sees only the three views on the left. The cutaway is drawn here for the reader and is
-        never given to the model, so the three frames have to be matched before the question can be answered.
+        <strong>Multi-agent collaborative reasoning in a shared environment,</strong> where multiple agents
+        observe the same environment from independent coordinate frames, requiring cross-agent
+        correspondence before inferring spatial and geometric relations. The model receives only the three
+        views on the left; the cutaway is drawn for the reader.
       </figcaption>
     </figure>
   </div>
@@ -148,15 +150,21 @@
       <h2 class="title is-3 has-text-centered">Abstract</h2>
       <div class="content has-text-justified">
         <p>
-          Multimodal LLMs are usually evaluated on a single view, or on several views that share camera
-          parameters. Collaborative settings are different. Several agents observe one environment from
-          independent viewpoints, and no agent can answer on its own. We introduce <strong>MaRiO</strong>,
-          a benchmark for multi-agent collaborative reasoning, and evaluate <strong>23</strong>
-          state-of-the-art MLLMs on it. The best of them scores 55.7 where humans score 73.2 and chance is
-          23.9. Reading a spatial fact off a matched pair of views is the easy part. What models cannot do
-          is work out which part of one view corresponds to which part of another, and the shortfall grows
-          when a third agent is added. Geometry-guided synthetic views win back 1.1 points for one model and leave the
-          rest flat or worse.
+          Multimodal Large Language Models (MLLMs) show strong visual perception capabilities, but
+          existing evaluations largely focus on single-view or multi-view settings with shared camera
+          parameters, leaving the challenge of multi-agent collaborative scenarios underexplored. In such
+          settings, multiple agents observe a shared environment from independent viewpoints, and reliable
+          decisions require reasoning across these independent observations of the same environment. To study
+          this problem, we introduce <strong>MaRiO</strong>, a benchmark for evaluating multi-agent
+          collaborative reasoning, and evaluate 23 state-of-the-art MLLMs on it. Our analysis reveals three
+          key findings: (1) tasks governed by static perception are generally easier than tasks that require
+          transformational event sequences; (2) most models struggle to resolve cross-agent correspondences,
+          with errors increasing with scene complexity; and (3) models show limited ability to leverage
+          geometric cues present in the scene. As an initial step toward addressing these challenges, we
+          explore geometry-guided synthetic view augmentation that generates intermediate transition frames
+          between agent observations, providing auxiliary spatial context that improves performance in
+          certain categories. Overall, our results highlight that multi-agent collaborative reasoning remains
+          an open challenge and an important direction for multimodal embodied systems.
         </p>
       </div>
     </div></div>
@@ -180,7 +188,10 @@
         <span class="row-outline" style="left:0.3%; top:87.4%; width:99.4%; height:9.4%"></span>
       </div></div>
       <figcaption>
-        MaRiO is the only row with more than one agent, independent camera geometry and no input beyond RGB.
+        <strong>Comparison of MaRiO with existing visual reasoning benchmarks.</strong> MV and MA respectively
+        denote Multi-view and Multi-agent. Perc. and Comp. respectively refer to static perception and
+        compositional reasoning over geometric transformations. Cam. Geom. refers to the provision of
+        explicit camera geometry, and Aux. Info. refers to auxiliary information beyond RGB frames.
       </figcaption>
     </figure>
 
@@ -249,9 +260,11 @@
         </picture>
       </div></div>
       <figcaption>
-        Zero-shot accuracy on MaRiO. Comp. groups the two tasks that compose a transformation between
-        frames, Static Perc. the three that read a fact off matched views. Within each model group, best
-        and second best are shaded.
+        <strong>Zero-shot performance of multi-agent collaborative reasoning on MaRiO.</strong> Dist.: Distance
+        awareness, Ego.: Egocentric motion, Nav.: Navigation, Occ.: Occlusion, and Rel.: Relative position.
+        Model type-wise best and second-best scores are highlighted, with overall best and second-best
+        additionally emphasized. Comp. and Static Perc. respectively refer to Compositional Reasoning over
+        Geometric Transformations and Static Perception.
       </figcaption>
     </figure>
 
@@ -385,7 +398,8 @@
                alt="Four models before and after adding synthetic views, with the change on each task. Qwen2.5-VL-7B gains 1.1 overall; the others are flat or lower.">
         </picture>
       </div></div>
-      <figcaption>Shaded cells improve after adding synthetic views.</figcaption>
+      <figcaption><strong>Performance of synthetic view augmentations.</strong> Improvements after adding synthetic views
+        and best overall gain are highlighted.</figcaption>
     </figure>
 
     <div class="columns is-centered"><div class="column is-four-fifths">

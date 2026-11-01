@@ -40,6 +40,19 @@ real predictions of four models on them. Five come from the real-world sources
 the benchmark are represented; each item carries a `source` field that the
 widget shows as a chip.
 
+## What is quoted and what is written
+
+The abstract is the paper's, word for word, with the one tracked-change
+revision applied (the struck-out clause about spatial versus geometric tasks is
+dropped in favour of the static-perception wording). The three table captions
+are the paper's captions, and the teaser caption leads with the paper's Figure 1
+caption. Those are citable and must not be paraphrased.
+
+Everything else on the page is written for the page: the tagline, the short
+notes under each section, and the analysis subheadings, which follow the
+paper's own subsection names. They summarise the paper and must stay faithful
+to it, but they are not quotations.
+
 ## Before publishing
 
 - [ ] Confirm the author list and affiliations. Order comes from the CV; the full first
