@@ -328,7 +328,7 @@
       <article class="finding">
         <h4>Shared environmental landmarks</h4>
         <div class="columns is-centered"><div class="column is-four-fifths">
-          <div class="lines"><p>Anchors are static objects visible to more than one agent, so they are the natural reference points for aligning views. Accuracy climbs with anchor density up to the six-to-nine bin and then falls away past ten, where many similar candidates make a spatial reference ambiguous rather than useful. Navigation and Egocentric Motion are the most sensitive, and the fall is steeper with three agents.</p></div>
+          <div class="lines"><p>Anchors are static objects visible to more than one agent, the natural reference points for aligning views. Accuracy climbs with anchor density to the six-to-nine bin and falls away past ten, where many similar candidates make a reference ambiguous rather than useful. The fall is steeper with three agents.</p></div>
         </div></div>
         <figure class="figure narrow">
         <picture><source srcset="static/images/figures/fig14_anchors.webp" type="image/webp">
@@ -356,14 +356,8 @@
       <article class="finding">
         <h4>Depth cue complexity</h4>
         <div class="columns is-centered"><div class="column is-four-fifths">
-          <div class="lines"><p>Relative depth comes from Depth Anything V2, and edge density is the share of pixels lying on a detected depth boundary. Samples are grouped by how many distinct depth layers a scene has, and high is compared against low edge density inside each group. Stronger depth structure does not help: most models do worse at higher edge density, the largest drop is in simple scenes, and across 20 models and three strata only one comparison survives Bonferroni correction at <em>&alpha;</em> = 0.0025.</p></div>
+          <div class="lines"><p>Stronger depth structure does not improve performance. Most models do worse where depth edges are denser, and the largest drop is in simple scenes. Depth is estimated afterwards and is never shown to the model.</p></div>
         </div></div>
-        <figure class="figure"><div class="fig-scroll" tabindex="0" role="region"
-             aria-label="Chart, scroll sideways to see all panels">
-        <picture><source srcset="static/images/figures/fig17_depth_strata.webp" type="image/webp">
-        <img src="static/images/figures/fig17_depth_strata.jpg" width="1600" height="974" loading="lazy"
-             alt="Two scenes from the simple stratum and two from the complex one, each shown as the original image, its depth map, its depth layers and the detected depth edges in red."></picture>
-        </div></figure>
         <figure class="figure"><div class="fig-scroll" tabindex="0" role="region"
              aria-label="Chart, scroll sideways to see all panels">
         <picture><source srcset="static/images/figures/fig7_depth.webp" type="image/webp">
@@ -391,7 +385,6 @@
       <p class="takeaway"><span>Takeaway</span>Human errors reflect the cognitive cost of composing viewpoint transformations and do not coincide with model errors, indicating that MaRiO&rsquo;s questions are answerable while remaining demanding for both humans and MLLMs.</p>
     </div>
 
-    <p class="further">The supplementary adds three analyses not shown here: bias towards navigational primitives, directional bias under cardinal remapping, and a replication of every finding above across 20 models.</p>
   </div>
 </section>
 
