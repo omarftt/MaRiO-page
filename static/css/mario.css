@@ -257,15 +257,6 @@ a { color: var(--a1); }
 .pred.ok .mark { color: var(--ok); }
 .pred.bad .mark { color: var(--no); }
 
-/* ------------------------------------------------------ bibtex */
-#BibTeX pre {
-  background: #fff; border: 1px solid var(--line); border-radius: 8px;
-  padding: 1rem 1.1rem; overflow-x: auto; font-size: 13px; line-height: 1.6; color: var(--ink);
-}
-.bibtex-head { display: flex; align-items: center; gap: 1rem; }
-.bibtex-head .title { margin-bottom: 0; font-family: var(--title-font); font-size: 26.6px; }
-.bibtex-head .button { font-family: var(--title-font); border: 1px solid var(--line); background: #fff; color: var(--muted); }
-.bibtex-head .button:hover { color: var(--ink); border-color: #C3CAD2; }
 
 .footer { border-top: 1px solid var(--line); padding: 2.5rem 1.5rem; }
 .footer .content p { font-size: 14px; color: var(--muted); }

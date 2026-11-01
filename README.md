@@ -39,7 +39,10 @@ real predictions of four models on them.
 
 ## Before publishing
 
-- [ ] Confirm the author list and affiliations (see the `citation_author` meta tags).
+- [ ] Confirm the author list and affiliations. Order comes from the CV; the full first
+      names are expansions of its initials, and Shruti Vyas is inferred rather than confirmed.
+      The same names are in the hero and in the `citation_author` meta tags.
+- [ ] Restore a BibTeX section once there is a real citation to publish.
 - [ ] Swap the two "coming soon" buttons for the paper PDF and code repo links.
 - [ ] Remove `<meta name="robots" content="noindex, nofollow">` from `index.html`.
 - [ ] Confirm the venue string. The PDF footer says "Track on Evaluations and Datasets";

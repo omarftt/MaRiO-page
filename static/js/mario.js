@@ -1,4 +1,4 @@
-/* MaRiO project page: one example explorer, plus BibTeX copy. */
+/* MaRiO project page: the example explorer. */
 (function () {
   'use strict';
 
@@ -184,21 +184,7 @@
     render();
   }
 
-  function wireBibtex() {
-    var btn = document.querySelector('[data-action="copy-bibtex"]');
-    var code = document.getElementById('bibtex');
-    if (!btn || !code || !navigator.clipboard) return;
-    btn.addEventListener('click', function () {
-      navigator.clipboard.writeText(code.textContent).then(function () {
-        var old = btn.textContent;
-        btn.textContent = 'Copied';
-        setTimeout(function () { btn.textContent = old; }, 1600);
-      });
-    });
-  }
-
   document.addEventListener('DOMContentLoaded', function () {
-    wireBibtex();
     var host = document.getElementById('explorer');
     if (!host) return;
     fetch('static/data/examples.json')
